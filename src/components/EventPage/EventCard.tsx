@@ -1,35 +1,64 @@
 
 interface EventCardProps {
-    
+    id : number
     image: string;
     title: string;
     description: string;
     date: Date;
-    users: { name: string; }[];
+    users: userProps[]
+}
+type userProps={
+    
+    id: number,
+    name : string
+    
 }
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function EventCard({ image, title, description, date, users }: EventCardProps) {
-    const [likes, setLikes] = useState(0);
-    const [comments, setComments] = useState(0);
-    const [liked, setLiked] = useState(false);
 
-    const handleLike = () => {
-        setLikes(liked ? likes - 1 : likes + 1);
-        setLiked(!liked);
-    };
-
+export default function EventCard({id, image, title, description, date, users }: EventCardProps) {
+    const navigate = useNavigate();
+    const handleClick = (id : number ) => {
+    navigate(`/Events/${id}`); // Redirige vers Profil avec l'ID de la Event
+  };
+    const currentUser = {id: 3, name: "test"};
+    const [participantList, setParticipantList] = useState<userProps[]>(users);
+    const isParticipating = users.includes(currentUser);
+    const handleParticipate = async () => {
+        try {
+          const response = await fetch(`http://localhost:3000/api/events/${id}/participate`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: currentUser }),
+          });
+    
+          if (!response.ok) {
+            throw new Error("Erreur lors de la participation");
+          }
+    
+        //   Met à jour la liste des participants localement
+          setParticipantList((prev) => [...prev, currentUser]);
+        } catch (error) {
+          console.error("❌ Erreur :", error);
+        }
+      };
     return (
         <motion.div 
             whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" }} 
             className="card w-96 bg-white shadow-lg rounded-lg overflow-hidden"
         >
             {/* Image */}
-            <figure className="h-52">
-                <img src={image} alt={title} className="w-full h-full object-cover" />
-            </figure>
+            <div key={id} onClick={() => handleClick(id)} className="cursor-pointer">
+                <figure className="h-52">
+                    
+                    <img src={image} alt={title} className="w-full h-full object-cover" />
+                </figure>
+            </div>
 
             {/* Contenu */}
             <div className="p-4">
@@ -51,18 +80,12 @@ export default function EventCard({ image, title, description, date, users }: Ev
 
                 {/* Actions */}
                 <div className="flex items-center mt-4 space-x-4">
-                    <button 
-                        onClick={handleLike} 
-                        className={`px-4 py-2 rounded text-white ${liked ? "bg-red-500" : "bg-gray-400"} hover:bg-red-600`}
-                    >
-                        ❤️ {likes}
-                    </button>
-                    <button 
-                        onClick={() => setComments(comments + 1)} 
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        💬 {comments}
-                    </button>
+                <button
+                    onClick={handleParticipate}
+                    className={`btn ${isParticipating ? "btn-success" : "btn-outline"}`}
+                >
+                    {isParticipating ? "✅ Participating" : "Participer"}
+                </button>
                 </div>
             </div>
         </motion.div>

@@ -43,10 +43,7 @@ const [Events, setEvents] = useState<EventCardProps[]>([]);
   },[]);
 
   
-  const navigate = useNavigate();
-  const handleClick = (Event : EventCardProps ) => {
-    navigate(`/Events/${Event.id}`); // Redirige vers Profil avec l'ID de la Event
-  };
+  
     return (
       <div>
         
@@ -54,10 +51,10 @@ const [Events, setEvents] = useState<EventCardProps[]>([]);
             <div className="col-span-3">
                 <h1 className="text-2xl font-bold text-center mb-6">Nos Events</h1>
                 <div className="grid grid-cols-3 gap-4">
-                {Events.map((Event, index) => (
-                    <div key={index} onClick={() => handleClick(Event)} className="cursor-pointer">
+                {Events.map((Event) => (
+                    
                     <EventCard {...Event} />
-                </div>
+             
                 ))}
                 </div>
                 

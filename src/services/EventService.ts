@@ -29,7 +29,8 @@ class EventService implements IEventService {
     async GetEventList(): Promise<Event[]> {
         const Events: Event[] = [];
        
-        
+        const participantList=[{id:1, name: "help"}, {id:2, name: "wanted"}];
+        const participantList2=[{id:1, name: "help"}, {id:2, name: "wanted"}, {id:4, name: "wanttted"}];
         
         Events.push({
             id: 1,
@@ -37,7 +38,7 @@ class EventService implements IEventService {
             likes: 1,
             description: "une description",
             comments: [],
-            users: [],
+            users: participantList,
             date: new Date(),
             location: "nowhere",
             createdAt: new Date(),
@@ -49,7 +50,7 @@ class EventService implements IEventService {
             likes: 6,
             comments: [],
             description: "une description",
-            users: [],
+            users: participantList2,
             date: new Date(),
             location: "everywhere",
             createdAt: new Date(),

@@ -61,13 +61,17 @@ export interface UserProps{
  } 
 }
 
+type UsersForEvent={
+    id: number,
+    name: string
+}
 export type Event={
     id: number;
     title: string;
     description: string;
     comments: Comment[];
     likes: number;
-    users: User[];
+    users: UsersForEvent[] ;
     date: Date;
     location: string
     createdAt: Date;
