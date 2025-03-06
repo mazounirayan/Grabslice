@@ -1,4 +1,3 @@
-import React from 'react';
 
 import SidebarProfile from './ProfileSidebar';
 import EventProfile from './eventProfile';
@@ -47,10 +46,8 @@ const ProfilePage = () => {
           <div className="bg-white rounded-xl shadow-md p-4 border-2 border-orange-300">
             <div className="tabs tabs-bordered mb-6">
               <a className="tab tab-active text-red-600 border-b-red-600">Mes Pizzas</a>
-              <a className="tab">Collaborations</a>
-              <a className="tab">Événements</a>
-              <a className="tab">Récompenses</a>
-              <a className="tab">Favoris</a>
+           
+            
             </div>
             
             <CreationProfile user={user} />

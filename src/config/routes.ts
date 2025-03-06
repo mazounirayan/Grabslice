@@ -3,6 +3,7 @@ import HomePage from '../pages/MainPage';
 import LoginPage from '../pages/LogginPage';
 import NotFound from '../pages/404';
 import ProfilePage from '@components/profilepage/profilePage';
+import PizzaDetailPage from '@components/DetailsPage/PizzaDetailPage';
 
 const routes: IRoute[] = [
     {
@@ -23,6 +24,15 @@ const routes: IRoute[] = [
         component: ProfilePage,
         exact: true
     },
+    {
+        path: '/PizzaDetail',
+        name: 'Pizza Detail Page',
+        component: PizzaDetailPage,
+        exact: true
+    },
+
+
+
     // {
     //     path: '/user/:number',
     //     name: 'User Layout',

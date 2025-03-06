@@ -67,4 +67,4 @@ export default function FilterCarousel({
         </button>
     </div>
   );
-};
+}

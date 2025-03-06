@@ -5,6 +5,7 @@ import FilterCarousel from "@components/HomePage/filterBar";
 import { useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
+import PizzaDetailPage from "@components/DetailsPage/PizzaDetailPage";
 interface PizzaCardProps {
   image: string;
   title: string;
@@ -85,7 +86,7 @@ const [activeFilter, setActiveFilter] = useState('all');
           
         </div>
 
-
+        <PizzaDetailPage/>
 
       </div>
 
