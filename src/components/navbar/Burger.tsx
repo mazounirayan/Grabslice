@@ -9,10 +9,10 @@ export default function Burger({ isLogged }: BurgerProps) {
     return (
         <div>
             <div className="dropdown">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-base-100 text-base bg-base">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circlee bg-base">
                     <FiMenu className="h-5 w-5 mr-2" />
                 </div>
-                <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52 text-base-100">
+                <ul tabIndex={0} className="text-4xl menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52">
                     <li><a href='/' >Homepage</a></li>
                     {
                         isLogged && (

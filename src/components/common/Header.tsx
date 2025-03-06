@@ -20,16 +20,16 @@ export default function Header() {
 
 
     return (
-        <div className="navbar bg-neutral max-w-4xl rounded-xl">
+        <div className="navbar bg-neutral max-w-4xl rounded-xl text-white">
             <div className="navbar-start">
                 <Burger isLogged={isLogged}/>
                 {/* <ThemeSwitcher /> */}
             </div>
             <div className="navbar-center">
 
-                <a className="btn btn-ghost text-xl text-base-100">{COMPANY_TITLE}</a>
+                <a className="btn btn-ghost text-xl">{COMPANY_TITLE}</a>
             </div>
-            <div className="navbar-end text-base-100">
+            <div className="navbar-end">
                 {/* <ContactForm short={true} /> */}
                 <UserBtn notif={true} userData={user} />
             </div>

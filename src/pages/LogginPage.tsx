@@ -66,7 +66,7 @@ export default function LogginPage() {
             <div
                 className="bg-no-repeat bg-cover bg-center relative"
                 style={{ backgroundImage: 'url(https://mag.bullebleue.fr/sites/mag/files/img/articles/global/plantes-irritantes-danger-pour-vos-animaux.jpg)' }}>
-                <div className="absolute bg-gradient-to-b from-blue-500 to-green-400 opacity-45 inset-0 z-0">
+                <div className="absolute bg-gradient-to-b from-orange-300 to-orange-600 opacity-45 inset-0 z-0">
                 </div>
                 <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
                     <div className="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10">
@@ -78,7 +78,7 @@ export default function LogginPage() {
                                 and publishing industries for previewing layouts and visual mockups</p>
                         </div>
                     </div>
-                    <div className="flex justify-center self-center z-10">
+                    <div className="bg-white flex justify-center self-center z-10 rounded-2xl">
                         <div className="p-12 bg-white mx-auto rounded-2xl w-100">
                             <div className="flex justify-center mb-6 z-20">
                                 <label className="flex items-center cursor-pointer">
@@ -127,7 +127,7 @@ export default function LogginPage() {
                                     </div>
                                     {isLogin && (
                                         <div className="flex items-center justify-between">
-                                            <div className="flex items-center">
+                                            {/* <div className="flex items-center">
                                                 <input
                                                     id="remember_me"
                                                     name="remember_me"
@@ -139,13 +139,22 @@ export default function LogginPage() {
                                                 <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-800">
                                                     Remember me
                                                 </label>
-                                            </div>
+                                            </div> */}
                                             <div className="text-sm">
                                                 <a href="#" className="text-accent hover:text-info hover:link">
                                                     Forgot your password?
                                                 </a>
                                             </div>
                                         </div>
+                                    )}
+                                    {!isLogin && (
+                                        <div className="flex items-center justify-between">
+                                        <div className="text-sm">
+                                            <a onClick={() => setIsLogin(!isLogin)} className="text-accent hover:text-info hover:link">
+                                                I have an account !
+                                            </a>
+                                        </div>
+                                    </div>
                                     )}
                                     <div>
                                         <button type="submit" className="w-full flex justify-center bg-accent hover:bg-info text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500">
