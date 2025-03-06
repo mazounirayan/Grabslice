@@ -27,6 +27,7 @@ class UserService implements IUserService{
             name: "Alexis",
             lastName: "Elefteriou",
             email: "email@mges.fr",
+            role: "admin",
             password: "dddd",
             skills: []
         }

@@ -33,6 +33,7 @@ export type User = {
     lastName: string;
     email: string;
     password: string;
+    role: string;
     skills : Skill[];
     createdAt?: Date;
     updatedAt?: Date;

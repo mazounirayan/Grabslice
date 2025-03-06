@@ -6,7 +6,7 @@ type User = {
   id: number;
   email: string;
   role: string;
-  active: boolean;
+  active?: boolean;
 };
 
 type UserContextType = {
