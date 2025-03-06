@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icônes des flèches
 
 interface FilterOption {
@@ -33,19 +33,18 @@ export default function FilterCarousel({
   };
 
   return (
-    <div className="flex justify-center w-full py-4 relative">
+    <div className="flex justify-center w-full py-4">
       {/* Left Scroll Button */}
       <button
         onClick={scrollLeft}
-        className="absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-white shadow-md rounded-full z-10"
+        className=" top-1/2 p-2 rounded-full z-10"
       >
         <FaChevronLeft size={24} />
       </button>
-
       {/* Scrollable container */}
       <div
         ref={scrollRef}
-        className="flex gap-3 py-4 overflow-x-auto snap-x snap-mandatory no-scrollbar w-[60%]"
+        className="flex gap-4 py-4 overflow-x-auto snap-x snap-mandatory no-scrollbar w-[60%]"
         style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
       >
         {options.map((option) => (
@@ -59,14 +58,13 @@ export default function FilterCarousel({
           </div>
         ))}
       </div>
-
       {/* Right Scroll Button */}
       <button
-        onClick={scrollRight}
-        className="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-white shadow-md rounded-full z-10"
-      >
-        <FaChevronRight size={24} />
-      </button>
+          onClick={scrollRight}
+          className=" top-1/2 p-2 rounded-full z-10 flex-start"
+        >
+          <FaChevronRight size={24} />
+        </button>
     </div>
   );
 };
