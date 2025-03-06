@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
 import PizzaService from "@services/PizzaService";
+import { useNavigate } from "react-router-dom";
 interface PizzaCardProps {
   image: string;
   title: string;
@@ -50,6 +51,10 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
     setActiveFilter(filterId);
     // Votre logique de filtrage ici
   };
+  const navigate = useNavigate();
+  const handleClick = (pizza : PizzaCardProps ) => {
+    navigate(`/profile/1`); // Redirige vers Profil avec l'ID de la pizza
+  };
     return (
       <div>
         <TitleCard/>
@@ -66,7 +71,9 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
               <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
               <div className="grid grid-cols-3 gap-4">
                 {pizzas.map((pizza, index) => (
-                  <PizzaCard key={index} {...pizza} />
+                  <div key={index} onClick={() => handleClick(pizza)} className="cursor-pointer">
+                  <PizzaCard {...pizza} />
+                </div>
                 ))}
               </div>
             </div>
@@ -80,3 +87,6 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
 
     )
 }
+
+
+
