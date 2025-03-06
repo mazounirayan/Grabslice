@@ -7,6 +7,8 @@ import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ToastManager, useToast } from './context/ToastManager';
 import { ModalProvider } from '@components/serviceable/modal.service';
+import TitleBig from '@components/common/TitleBig';
+import { useEffect } from 'react';
 
 console.log("Vites is running in mode: ", import.meta.env.MODE);
 console.log("Vites is running in env prod : ", import.meta.env.PROD);
@@ -15,11 +17,18 @@ console.log("Vites is running in env dev : ", import.meta.env.DEV);
 function App() {
 
   return (
-    <div className="min-h-screen flex flex-col">
-        <header className="w-full fixed top-0 z-50">
-          <Header />
-        </header>
-      <div className={`flex-grow 'pt-16'`}>
+    <div className="min-h-screen">
+
+      <div className="flex w-full z-49 justify-center m-6">
+        <TitleBig />
+      </div>
+
+      <header className='flex w-full z-50 justify-center sticky top-0'>
+        <Header />
+      </header>
+  
+
+      <div className={`flex-grow 'pt-16' mt-4`}>
         <Routes>
           {routes.map((route, index) => {
             if (route.children) {

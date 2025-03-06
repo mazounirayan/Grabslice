@@ -3,7 +3,7 @@ import UserBtn from '@components/navbar/UserBtn';
 import Burger from '@components/navbar/Burger';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../context/UserContext';
-import ThemeSwitcher from './ThemeSwitcher';
+// import ThemeSwitcher from './ThemeSwitcher';
 import { COMPANY_TITLE } from '@assets/values/strings';
 
 
@@ -20,10 +20,10 @@ export default function Header() {
 
 
     return (
-        <div className="navbar bg-neutral fixed top-0 left-0 w-full z-50">
+        <div className="navbar bg-neutral max-w-4xl rounded-xl">
             <div className="navbar-start">
                 <Burger isLogged={isLogged}/>
-                <ThemeSwitcher />
+                {/* <ThemeSwitcher /> */}
             </div>
             <div className="navbar-center">
 

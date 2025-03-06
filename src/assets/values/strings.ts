@@ -1,1 +1,1 @@
-export const COMPANY_TITLE = 'PlaceHolder Title';
+export const COMPANY_TITLE = 'GrabSlice';
