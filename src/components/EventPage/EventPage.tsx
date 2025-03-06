@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import EventService from "@services/EventService";
 import { useNavigate } from "react-router-dom";
 import { User } from "@interfaces/type";
-import TitleCard from "@components/HomePage/TitleCard";
+
 
 interface EventCardProps {
   id: number;
@@ -49,7 +49,7 @@ const [Events, setEvents] = useState<EventCardProps[]>([]);
   };
     return (
       <div>
-        <TitleCard/>
+        
         <div className="grid grid-cols-4 gap-2">
             <div className="col-span-3">
                 <h1 className="text-2xl font-bold text-center mb-6">Nos Events</h1>
