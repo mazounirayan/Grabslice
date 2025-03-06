@@ -3,6 +3,7 @@ import HomePage from '../pages/MainPage';
 import LoginPage from '../pages/LogginPage';
 import NotFound from '../pages/404';
 import ProfilePage from '@components/profilepage/profilePage';
+import UserLayout from '@layouts/UserOutlet';
 
 const routes: IRoute[] = [
     {
@@ -23,20 +24,20 @@ const routes: IRoute[] = [
         component: ProfilePage,
         exact: true
     },
-    // {
-    //     path: '/user/:number',
-    //     name: 'User Layout',
-    //     component: UserLayout,
-    //     exact: false, // Set to false to allow nesting
-    //     children: [
-    //         {
-    //             path: '',
-    //             name: 'User Page',
-    //             component: UserPage,
-    //             exact: true
-    //         }
-    //     ]
-    // },
+    {
+        path: '/profile/:number',
+        name: 'profile Layout',
+        component: UserLayout,
+        exact: false, // Set to false to allow nesting
+        children: [
+            {
+                path: '',
+                name: 'User Page',
+                component: ProfilePage,
+                exact: true
+            }
+        ]
+    },
     {
         path: '*',
         name: 'Not Found',

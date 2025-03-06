@@ -1,4 +1,4 @@
-import { Project } from '@interfaces/type';
+import { Project, Skill } from '@interfaces/type';
 import { CustomError } from '../commons/Error';
 
 
@@ -14,6 +14,57 @@ const BASE_URL = '/api/'
 
 class PizzaService implements IPizzaService {
     async GetPizzaList(): Promise<Project[]> {
+        const pizzas: Project[] = [];
+        const categories: Skill[] = [];
+        categories.push({
+            id: 1,
+            name: 'Rust',
+            shapeName: 'Shape 1',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        
+        });
+        categories.push({
+            id: 2,
+            name: 'Java',
+            shapeName: 'Shape 2',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        
+        });
+        categories.push({
+            id: 3,
+            name: 'Typescript',
+            shapeName: 'Shape 3',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        
+        });
+        pizzas.push({
+            id: 1,
+            name: 'Pizza 1',
+            likes: 1,
+            comments: [],
+            categories: categories,
+            collaborators: [],
+            request: [],
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+        pizzas.push({
+            id: 2,
+            name: 'Pizza 2',
+            likes: 6,
+            comments: [],
+            categories: categories.slice(0, 1),
+            collaborators: [],
+            request: [],
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+        return pizzas;
+
+        
         try {
             const res = await fetch('http://localhost:3000/pizzas');
             if (!res.ok) {
@@ -98,3 +149,5 @@ class PizzaService implements IPizzaService {
         }
     }
 }
+
+export default new PizzaService();

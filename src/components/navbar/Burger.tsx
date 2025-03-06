@@ -19,12 +19,7 @@ export default function Burger({ isLogged }: BurgerProps) {
                             <li><a href='/eventList'>Event List</a></li>
                         )
                     }
-<<<<<<< HEAD
                     <li><a href='/about'>About</a></li>
-                    <li><a href='/profile'>profile</a></li>
-=======
-                    {/* <li><a href='/about'>About</a></li> */}
->>>>>>> ed92d900ceea6d2361f3e0e97b5132cc97ef0f36
                 </ul>
             </div>
         </div>

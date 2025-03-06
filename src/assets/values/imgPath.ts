@@ -11,7 +11,13 @@ export const IMAGES_PATH: { [key: string]: string } = {
   OTHER: "/svg/bacon.svg"
 };
 
-export enum INGREDIENT_TO_COLOR {
+export const INGREDIENT_TO_COLOR : { [key: string]: string } = {
+  "Rust" : "#FF0000",
+  "Java" : "#FFA500",
+  "Typescript" : "#FFFF00",
+}
+
+export enum INGREDIENT_TO_COLOR_ENUM {
     KT= "#FF0000",
     RUBY= "#FFA500",
     PEARL= "#FFFF00", 
