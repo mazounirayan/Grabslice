@@ -14,7 +14,7 @@ const images: { [key: string]: string } = {
 };
 
 
-export default function ButtonList() {
+export default function ToppingListFilter() {
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
     const [recents, setRecents] = useState<string[]>([]);
   
@@ -40,7 +40,7 @@ export default function ButtonList() {
     };
   
     return (
-      <div className="w-64 p-4 border rounded-lg shadow-lg">
+      <div className=" p-4 border rounded-lg shadow-lg">
         {/* Recents */}
         <div className="mb-4">
           <h3 className="font-semibold flex justify-between items-center">

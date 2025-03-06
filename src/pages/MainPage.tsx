@@ -4,6 +4,7 @@ import PizzaCard from "@components/HomePage/pizzaCard";
 import image  from "../../public/images/pizza.png";
 import FilterCarousel from "@components/HomePage/filterBar";
 import { useState } from "react";
+import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 interface PizzaCardProps {
   image: string;
   title: string;
@@ -73,18 +74,28 @@ const [activeFilter, setActiveFilter] = useState('all');
     return (
       <div>
         <TitleCard/>
-        <FilterCarousel       
-          options={filterOptions}
-          onFilterSelect={handleFilterSelect}   selectedFilter={activeFilter}     
-        />
-        <div className="p-2">
-            <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
-            <div className="grid grid-cols-4 gap-4">
-              {pizzas.map((pizza, index) => (
-                <PizzaCard key={index} {...pizza} />
-              ))}
+        <div className="grid grid-cols-4 gap-2">
+          <div className="w-full m-2 col-span-1">
+              <ToppingListFilter/>
+          </div>
+          <div className="col-span-3">
+            <FilterCarousel       
+              options={filterOptions}
+              onFilterSelect={handleFilterSelect}   selectedFilter={activeFilter}     
+            />
+            <div className="p-2">
+              <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
+              <div className="grid grid-cols-4 gap-4">
+                {pizzas.map((pizza, index) => (
+                  <PizzaCard key={index} {...pizza} />
+                ))}
+              </div>
             </div>
           </div>
+        </div>
+
+
+
       </div>
 
     )
