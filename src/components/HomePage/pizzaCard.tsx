@@ -37,5 +37,5 @@ export default function PizzaCard (PizzaCardProps: PizzaCardProps) {
             </div>
         </div>
     );
-};
+}
 

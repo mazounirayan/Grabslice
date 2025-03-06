@@ -20,8 +20,9 @@ export default function Burger({ isLogged }: BurgerProps) {
                         )
                     }
                     <li><a href='/about'>About</a></li>
-                    {/* <li><a href='/profile'>profile</a></li> */}
-
+                    <li><a href='/profile'>profile</a></li>
+                    <li><a href='/PizzaDetail'>PizzaDetailPage</a></li>
+                    
                     {/* <li><a href='/about'>About</a></li> */}
                 </ul>
             </div>

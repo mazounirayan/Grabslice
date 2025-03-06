@@ -1,4 +1,3 @@
-import React from 'react';
 
 import SidebarProfile from './ProfileSidebar';
 import EventProfile from './eventProfile';
