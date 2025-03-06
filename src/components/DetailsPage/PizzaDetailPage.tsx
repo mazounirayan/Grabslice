@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import image  from "../../../public/images/pizza.png";
 
 interface Pizza {
@@ -61,8 +62,8 @@ const pizzas: Pizza[] = [
 ];
 
 export default function PizzaDetailPage() {
-   // const { id } = useParams<{ id: string }>();
-   const   id = 1 ;
+    const { id } = useParams<{ id: string }>();
+   //const   id = 1 ;
     const pizza = pizzas.find(p => p.id === Number(id));
 
     if (!pizza) {

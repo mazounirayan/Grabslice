@@ -5,10 +5,10 @@ import FilterCarousel from "@components/HomePage/filterBar";
 import { useEffect, useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
-import PizzaDetailPage from "@components/DetailsPage/PizzaDetailPage";
 import PizzaService from "@services/PizzaService";
 import { useNavigate } from "react-router-dom";
 interface PizzaCardProps {
+  id: number;
   image: string;
   title: string;
   toppings: string;
@@ -32,6 +32,7 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
     PizzaService.GetPizzaList().then((data) => {
       const val:PizzaCardProps[] = data.map((pizza) => {
         return {
+          id:1,
           image: image,
           title: pizza.name,
           toppings: pizza.categories.map((category) => category.name).join(", "),
@@ -54,7 +55,7 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
   };
   const navigate = useNavigate();
   const handleClick = (pizza : PizzaCardProps ) => {
-    navigate(`/profile/1`); // Redirige vers Profil avec l'ID de la pizza
+    navigate(`/PizzaDetail/${pizza.id}`); // Redirige vers Profil avec l'ID de la pizza
   };
     return (
       <div>
@@ -82,7 +83,7 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
           
         </div>
 
-        <PizzaDetailPage/>
+    
 
       </div>
 
