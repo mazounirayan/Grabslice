@@ -14,7 +14,7 @@ const images: { [key: string]: string } = {
 };
 
 
-const ButtonList: React.FC = () => {
+export default function ButtonList() {
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
     const [recents, setRecents] = useState<string[]>([]);
   
@@ -89,5 +89,4 @@ const ButtonList: React.FC = () => {
       </div>
     );
   };
-  
-  export default ButtonList;
+
