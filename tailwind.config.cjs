@@ -36,18 +36,20 @@ module.exports = {
 					"--primary-muted": "65% 0.2 295", 
 				},
 				dark: {
-					"primary": "#1e3a8a", // Darker primary blue
-					"secondary": "#006400", // Darker green
-					"accent": "#0084ff", // Darker accent blue
-					"neutral": "#1f2937", // Darker neutral gray
-					"base-100": "#cccccc", // Darker background color
-					"info": "#00bcd4", // Darker info color
-					"success": "#4caf50", // Darker success green
-					"warning": "#ff9800", // Darker warning orange
-					"error": "#f44336", // Darker error red
+					"primary": "#0000ff",
+					"secondary": "#00a300",
+					"accent": "#00bdff",
+					"neutral": "#0c0400",
+					"base-75": "#fff4f3",
+					"base-100": "#ffddb8",
+					"info": "#00d2ea",
+					"success": "#5fb500",
+					"warning": "#9f4f00",
+					"error": "#f6486e",
 					"title":"#eab676",
-					"--card": "95% 0 0", // Darker card background
-					"--primary-muted": "34% 0.2 289",
+					"--background": "var(--base-75)",
+					"--card": "100% 0 0",
+					"--primary-muted": "65% 0.2 295", 
 				},
 			},
 		],

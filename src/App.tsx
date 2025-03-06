@@ -8,7 +8,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ToastManager, useToast } from './context/ToastManager';
 import { ModalProvider } from '@components/serviceable/modal.service';
 import TitleBig from '@components/common/TitleBig';
-import { useEffect } from 'react';
 
 console.log("Vites is running in mode: ", import.meta.env.MODE);
 console.log("Vites is running in env prod : ", import.meta.env.PROD);
@@ -24,9 +23,8 @@ function App() {
       </div>
 
       <header className='flex w-full z-50 justify-center sticky top-0'>
-        <Header />
+        <Header />  
       </header>
-  
 
       <div className={`flex-grow 'pt-16' mt-4`}>
         <Routes>

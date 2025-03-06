@@ -41,7 +41,7 @@ export default function UserBtn({ notif,userData }: UserBtnProps) {
                 ) : (
                     <ul className="menu dropdown-content w-48 bg-base-100 text-neutral shadow-lg rounded-md origin-top-right right-0">
                         <li>
-                            <a href="/login/" className="block px-4 py-2 text-sm">Login</a>
+                            <a href="/login" className="block px-4 py-2 text-sm">Login</a>
                         </li>
                     </ul>
                 )

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../../context/UserContext';
 // import ThemeSwitcher from './ThemeSwitcher';
 import { COMPANY_TITLE } from '@assets/values/strings';
-
+import LanguageCompositionModal from '@components/modal/createProjectModal';
 
 export default function Header() {
     const { user } = useUser();
@@ -30,7 +30,11 @@ export default function Header() {
                 <a className="btn btn-ghost text-xl">{COMPANY_TITLE}</a>
             </div>
             <div className="navbar-end">
+                {isLogged && (
+                    <LanguageCompositionModal/>
+                )}
                 {/* <ContactForm short={true} /> */}
+                
                 <UserBtn notif={true} userData={user} />
             </div>
         </div>

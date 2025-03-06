@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface PizzaCardProps {
     image: string;
@@ -7,7 +6,7 @@ interface PizzaCardProps {
     ingredients: { name: string; color: string }[];
 }
 
-const PizzaCard: React.FC<PizzaCardProps> = (PizzaCardProps) => {
+export default function PizzaCard (PizzaCardProps: PizzaCardProps) {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure className="h-1/2">
@@ -20,10 +19,14 @@ const PizzaCard: React.FC<PizzaCardProps> = (PizzaCardProps) => {
                     {PizzaCardProps.ingredients.map((ingredient, index) => (
                         <span
                             key={index}
-                            className="px-2 py-1 rounded"
-                            style={{ backgroundColor: ingredient.color }}
+                            className="rounded badge badge-lg"
+                            style={{ backgroundColor: "white" }}
                         >
-                            {ingredient.name}
+                            <div className="badge"
+                            style={{ backgroundColor: ingredient.color }}/>
+                            <p className='m-1'>
+                                {ingredient.name}
+                            </p>
                         </span>
                     ))}
                 </div>
@@ -36,4 +39,3 @@ const PizzaCard: React.FC<PizzaCardProps> = (PizzaCardProps) => {
     );
 };
 
-export default PizzaCard;

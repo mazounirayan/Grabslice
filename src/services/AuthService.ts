@@ -19,6 +19,8 @@ export interface LogoutResponse{
   message:string;
 }
 
+const BASE_URL = '/api/v1/auth/'
+
 class AuthService{
     async login(email: string, password: string): Promise<LogRegResponse|CustomError> {
 
@@ -27,7 +29,7 @@ class AuthService{
             password: password,
         };
         try {
-            const response = await fetch('/api/v1/auth/login', {
+            const response = await fetch(BASE_URL+'login', {
               body: JSON.stringify(body),
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -46,7 +48,7 @@ class AuthService{
 
     async logout(): Promise<LogoutResponse|CustomError> {
         try{
-          const response = await fetch('/api/v1/auth/logout', {
+          const response = await fetch(BASE_URL+'logout', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ class AuthService{
             password: password,
         };
         try {
-            const response = await fetch('/api/v1/auth/signup', {
+            const response = await fetch(BASE_URL+'signup', {
               body: JSON.stringify(body),
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
