@@ -25,27 +25,31 @@ export default function EventCard({id, image, title, description, date, users }:
     navigate(`/Events/${id}`); // Redirige vers Profil avec l'ID de la Event
   };
     const currentUser = {id: 3, name: "test"};
-    const [participantList, setParticipantList] = useState<userProps[]>(users);
-    const isParticipating = users.includes(currentUser);
-    const handleParticipate = async () => {
-        try {
-          const response = await fetch(`http://localhost:3000/api/events/${id}/participate`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ userId: currentUser }),
-          });
+    const [participantList, setParticipantList] = useState<userProps[]>([...users]);
+    const isParticipating = participantList.some(user => user.id === currentUser.id);
+    const handleParticipate =  () => {
+        // try {
+        //   const response = await fetch(`http://localhost:3000/api/events/${id}/participate`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ userId: currentUser }),
+        //   });
     
-          if (!response.ok) {
-            throw new Error("Erreur lors de la participation");
+        //   if (!response.ok) {
+        //     throw new Error("Erreur lors de la participation");
+        //   }
+    
+        // //   Met à jour la liste des participants localement
+        //   setParticipantList((prev) => [...prev, currentUser]);
+        // } catch (error) {
+        //   console.error("❌ Erreur :", error);
+        // }
+        
+        if (!isParticipating) {
+            setParticipantList((prev) => [...prev, currentUser]);
           }
-    
-        //   Met à jour la liste des participants localement
-          setParticipantList((prev) => [...prev, currentUser]);
-        } catch (error) {
-          console.error("❌ Erreur :", error);
-        }
       };
     return (
         <motion.div 
@@ -83,8 +87,9 @@ export default function EventCard({id, image, title, description, date, users }:
                 <button
                     onClick={handleParticipate}
                     className={`btn ${isParticipating ? "btn-success" : "btn-outline"}`}
+                    disabled={isParticipating}
                 >
-                    {isParticipating ? "✅ Participating" : "Participer"}
+                    {isParticipating ? "✅ Déjà inscrit" : "Participer"}
                 </button>
                 </div>
             </div>
