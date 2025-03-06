@@ -25,7 +25,7 @@ interface IProjectService {
     removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<any>;
 }
 
-const BASE_URL = '/api/project'
+const BASE_URL = '/api/project/'
 
 class PizzaService implements IProjectService {
     async GetPizzaList(): Promise<Project[]> {
@@ -60,7 +60,7 @@ class PizzaService implements IProjectService {
             name: 'Pizza 1',
             likes: 1,
             comments: [],
-            categories: categories,
+            categories: categories.slice(1,3),
             collaborators: [],
             request: [],
             createdAt: new Date(),
@@ -103,9 +103,9 @@ class PizzaService implements IProjectService {
         }
     }
 
-    async GetPizzaById(id: string): Promise<Project> {
+    async GetPizzaById(userId: string): Promise<Project> {
         try {
-            const res = await fetch(`http://localhost:3000/pizzas/${id}`);
+            const res = await fetch(`http://localhost:3000`+BASE_URL + userId);
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }

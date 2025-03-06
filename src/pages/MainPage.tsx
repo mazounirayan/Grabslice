@@ -59,7 +59,7 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
   };
     return (
       <div>
-        <TitleCard/>
+        {/* <TitleCard/> */}
         <div className="grid grid-cols-4 gap-2">
           <div className="w-full m-2 col-span-1">
               <ToppingListFilter/>
