@@ -1,18 +1,33 @@
 import { Project, Skill } from '@interfaces/type';
 import { CustomError } from '../commons/Error';
 
+interface IProjectService {
+    GetPizzaById(id: string): Promise<any>;
+    UpdatePizzaById(id: string, body: any): Promise<any>;
+    DeletePizzaById(id: string): Promise<any>;
+    GetPizzaList(limit: number, page: number): Promise<any>;
+    CreatePizza(body: any): Promise<any>;
 
-interface IPizzaService {
-    GetPizzaList(): Promise<Project[]>;
-    GetPizzaOfUser(userId: string): Promise<Project[]>;
-    GetPizzaById(id: string): Promise<Project>;
-    CreatePizza(body: any): Promise<Project>;
-    UpdatePizzaById(id: string, body: any): Promise<Project>;
-    DeletePizzaById(id: string): Promise<void>;
+    addSliceToPizza(id: string, body: any): Promise<any>;
+    addSkillToPizza(id: string, body: any): Promise<any>;
+    addCommentToPizza(id: string, body: any): Promise<any>;
+    addCollaboratorToPizza(id: string, body: any): Promise<any>;
+
+    likePizza(id: string): Promise<any>;
+    unlikePizza(id: string): Promise<any>;
+
+    getPizzaComments(id: string): Promise<any>;
+    GetPizzaOfUser(userId: string): Promise<Project[]>
+
+    removeSliceFromPizza(id: string, sliceId: string): Promise<any>;
+    removeSkillFromPizza(id: string, skillId: string): Promise<any>;
+    removeCommentFromPizza(id: string, commentId: string): Promise<any>;
+    removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<any>;
 }
-const BASE_URL = '/api/'
 
-class PizzaService implements IPizzaService {
+const BASE_URL = '/api/project'
+
+class PizzaService implements IProjectService {
     async GetPizzaList(): Promise<Project[]> {
         const pizzas: Project[] = [];
         const categories: Skill[] = [];
@@ -66,7 +81,7 @@ class PizzaService implements IPizzaService {
 
         
         try {
-            const res = await fetch('http://localhost:3000/pizzas');
+            const res = await fetch('http://localhost:3000'+BASE_URL);
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }
@@ -78,7 +93,7 @@ class PizzaService implements IPizzaService {
 
     async GetPizzaOfUser(userId: string): Promise<Project[]> {
         try {
-            const res = await fetch(`http://localhost:3000/pizzas?userId=${userId}`);
+            const res = await fetch(`http://localhost:3000/pizzas/user/${userId}`);
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }
@@ -147,6 +162,39 @@ class PizzaService implements IPizzaService {
         } catch (error: any) {
             throw new CustomError(500, error.message);
         }
+    }
+    addSliceToPizza(id: string, body: any): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    addSkillToPizza(id: string, body: any): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    addCommentToPizza(id: string, body: any): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    addCollaboratorToPizza(id: string, body: any): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    likePizza(id: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    unlikePizza(id: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    getPizzaComments(id: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    removeSliceFromPizza(id: string, sliceId: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    removeSkillFromPizza(id: string, skillId: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    removeCommentFromPizza(id: string, commentId: string): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+    removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<any> {
+        throw new Error('Method not implemented.');
     }
 }
 

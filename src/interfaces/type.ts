@@ -51,19 +51,12 @@ export type Slice = {
 export interface UserProps{
  user:{
     name: string;
-    avatar: string;
     username: string;
-    bio: string;
-    location?: string;
-    website?: string;
     email?: string;
-    followers: number;
-    experience: string;
-    following: number;
-    pizzerias: { id: number; name: string; avatar: string }[];
-    skills: string[];
+    experience: Date;
+    skills: Skill[];
     events: { id: number; name: string; date: string; location: string }[];
-    achievements: { id: number; title: string; contest: string }[];
-    pinnedPizzas: { id: number; name: string; description: string; stars: number; shares: number; style: string; styleColor: string }[];
+    achievements?: { id: number; title: string; contest: string }[];
+    pinnedPizzas: Project[];
  } 
 }

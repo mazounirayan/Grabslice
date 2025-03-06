@@ -19,12 +19,6 @@ const routes: IRoute[] = [
         exact: true
     },
     {
-        path: '/profile',
-        name: 'profile Page',
-        component: ProfilePage,
-        exact: true
-    },
-    {
         path: '/profile/:number',
         name: 'profile Layout',
         component: UserLayout,
