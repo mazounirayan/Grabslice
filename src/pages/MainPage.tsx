@@ -73,7 +73,6 @@ const [activeFilter, setActiveFilter] = useState('all');
     return (
       <div>
         <TitleCard/>
-        <CompanyDesc/>
         <FilterCarousel       
           options={filterOptions}
           onFilterSelect={handleFilterSelect}   selectedFilter={activeFilter}     
