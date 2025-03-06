@@ -8,7 +8,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ToastManager, useToast } from './context/ToastManager';
 import { ModalProvider } from '@components/serviceable/modal.service';
 import TitleBig from '@components/common/TitleBig';
-import { useEffect, useState } from 'react';
 
 console.log("Vites is running in mode: ", import.meta.env.MODE);
 console.log("Vites is running in env prod : ", import.meta.env.PROD);
