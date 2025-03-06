@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { FaThumbtack } from "react-icons/fa";
+import { IMAGES_PATH } from "@assets/values/imgPath";
 
 // Exemple d'images (tu peux les remplacer par des liens ou des fichiers locaux)
 // Option 2: Si les images sont dans le dossier public
-const images: { [key: string]: string } = {
-  KT: "/svg/bacon.svg",
-  RUBY: "/svg/champignon.svg",
-  PEARL: "/svg/crevette.svg",
-  KOBOL: "/svg/poulet.svg",
-  C: "/svg/onion.svg",
-  "C++": "/svg/saumon.svg",
-  "C#": "/svg/tomate.svg",
-};
 
 
 export default function ToppingListFilter() {
@@ -19,7 +11,7 @@ export default function ToppingListFilter() {
     const [recents, setRecents] = useState<string[]>([]);
   
     // Liste initiale des éléments disponibles
-    const allToppings = Object.keys(images);
+    const allToppings = Object.keys(IMAGES_PATH);
   
     const handleSelect = (item: string) => {
       setSelectedItem(item === selectedItem ? null : item);
@@ -43,26 +35,34 @@ export default function ToppingListFilter() {
       <div className=" p-4 border rounded-lg shadow-lg">
         {/* Recents */}
         <div className="mb-4">
-          <h3 className="font-semibold flex justify-between items-center">
-            Recents <FaThumbtack className="text-gray-500 cursor-pointer" />
-          </h3>
-          {recents.map((item) => (
-            <button
-              key={item}
-              onClick={() => handleSelect(item)}
-              className={`w-full flex items-center p-2 mt-2 rounded-lg ${
-                selectedItem === item ? "bg-blue-500 text-white" : "bg-gray-200"
-              }`}
-            >
-              <img
-                src={images[item]}
-                alt={item}
-                className="w-6 h-6 mr-2"
-                onError={handleImageError}
-              />
-              <span>{item}</span>
-            </button>
-          ))}
+          {
+            !(recents.length === 0) && (
+              <div>
+                  <h3 className="font-semibold flex justify-between items-center">
+              Recents 
+              {/* <FaThumbtack className="text-gray-500 cursor-pointer" /> */}
+            </h3>
+            {recents.map((item) => (
+              <button
+                key={item}
+                onClick={() => handleSelect(item)}
+                className={`w-full flex items-center p-2 mt-2 rounded-lg ${
+                  selectedItem === item ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                <img
+                  src={IMAGES_PATH[item]}
+                  alt={item}
+                  className="w-6 h-6 mr-2"
+                  onError={handleImageError}
+                />
+                <span>{item}</span>
+              </button>
+              ))
+            }
+              </div>
+            )
+          }
         </div>
   
         {/* Toppings (sans les récents) */}
@@ -77,7 +77,7 @@ export default function ToppingListFilter() {
               }`}
             >
               <img
-                src={images[item]}
+                src={IMAGES_PATH[item]}
                 alt={item}
                 className="w-6 h-6 mr-2"
                 onError={handleImageError}

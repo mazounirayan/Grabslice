@@ -127,19 +127,6 @@ export default function LogginPage() {
                                     </div>
                                     {isLogin && (
                                         <div className="flex items-center justify-between">
-                                            {/* <div className="flex items-center">
-                                                <input
-                                                    id="remember_me"
-                                                    name="remember_me"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
-                                                    onChange={handleChange}
-                                                    checked={formData.remember_me}
-                                                />
-                                                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-800">
-                                                    Remember me
-                                                </label>
-                                            </div> */}
                                             <div className="text-sm">
                                                 <a href="#" className="text-accent hover:text-info hover:link">
                                                     Forgot your password?
@@ -166,7 +153,7 @@ export default function LogginPage() {
                             </form>
                             <div className="pt-5 text-center text-gray-400 text-xs">
                                 <span>
-                                    Copyright © 2021-2022
+                                    Copyright © 2025-2026
                                 </span>
                             </div>
                         </div>

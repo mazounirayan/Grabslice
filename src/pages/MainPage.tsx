@@ -1,10 +1,10 @@
 import TitleCard from "../components/HomePage/TitleCard"
-import CompanyDesc from "../components/HomePage/CompanyDesc";
 import PizzaCard from "@components/HomePage/pizzaCard";
 import image  from "../../public/images/pizza.png";
 import FilterCarousel from "@components/HomePage/filterBar";
 import { useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
+import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
 interface PizzaCardProps {
   image: string;
   title: string;
@@ -14,22 +14,12 @@ interface PizzaCardProps {
 const pizzas: PizzaCardProps[] = [
   {
     image: image,
-    title: "Margherita",
-    toppings: "Mozzarella, Basilic",
-    ingredients: [
-      { name: "Tomate", color: "red" },
-      { name: "Mozzarella", color: "white" },
-      { name: "Basilic", color: "green" }
-    ]
-  },
-  {
-    image: image,
     title: "codeworks",
     toppings: "java, react",
     ingredients: [
-      { name: "java", color: "red" },
-      { name: "react", color: "white" },
-      { name: "sql", color: "brown" }
+      { name: "java", color: INGREDIENT_TO_COLOR.JAVA },
+      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL }
     ]
   },
   {
@@ -38,9 +28,9 @@ const pizzas: PizzaCardProps[] = [
     toppings: "react, sql, lolo",
     ingredients: [
     
-      { name: "react", color: "white" },
-      { name: "sql", color: "brown" },
-      { name: "lolo", color: "purple" }
+      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
+      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
     ]
   },
   {
@@ -48,9 +38,9 @@ const pizzas: PizzaCardProps[] = [
     title: "Hawaiian website",
     toppings: "next, sql",
     ingredients: [
-      { name: "next", color: "white" },
-      { name: "sql", color: "brown" },
-      { name: "lolo", color: "purple" }
+      { name: "pearl", color: INGREDIENT_TO_COLOR.PEARL },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
+      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
     ]
   }
 ];
@@ -85,7 +75,7 @@ const [activeFilter, setActiveFilter] = useState('all');
             />
             <div className="p-2">
               <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 {pizzas.map((pizza, index) => (
                   <PizzaCard key={index} {...pizza} />
                 ))}
