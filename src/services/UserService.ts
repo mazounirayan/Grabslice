@@ -1,3 +1,4 @@
+import { User } from '@interfaces/type';
 import { CustomError } from '../commons/Error';
 
 
@@ -17,7 +18,22 @@ interface PatchUserByIdBody {
 }
 
 class UserService implements IUserService{
-    async getUserDataByToken(): Promise<any> {
+    async getUserDataByToken(): Promise<User> {
+
+
+
+        const usr: User = {
+            id: 0,
+            name: "Alexis",
+            lastName: "Elefteriou",
+            email: "email@mges.fr",
+            role: "admin",
+            password: "dddd",
+            skills: []
+        }
+        return usr;
+
+
         const response = await fetch('/api/v1/users/self', {
             method: 'GET',
             headers: {
@@ -27,12 +43,12 @@ class UserService implements IUserService{
         });
         const data = await response.json();
         if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
+            throw new CustomError(response.status, data.error || 'Something went wrong');
         }
         // console.log(data)
         return data;
     }
-    async getUserList(page: number, limit: number): Promise<any> {
+    async getUserList(page: number, limit: number): Promise<User[]> {
         const url = new URL('/api/v1/users', window.location.origin);
         url.searchParams.append('page', page.toString());
         url.searchParams.append('limit', limit.toString());
@@ -47,11 +63,11 @@ class UserService implements IUserService{
     
         const data = await response.json();
         if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
+            throw new CustomError(response.status, data.error || 'Something went wrong');
         }
         return data;
     }
-    async getUserById(id: string): Promise<any> {
+    async getUserById(id: string): Promise<User> {
         const response = await fetch(`/api/v1/users/${id}`, {
             method: 'GET',
             headers: {
@@ -61,11 +77,11 @@ class UserService implements IUserService{
         });
         const data = await response.json();
         if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
+            throw new CustomError(response.status, data.error || 'Something went wrong');
         }
         return data;
     }
-    async deleteUserById(id: string): Promise<any> {
+    async deleteUserById(id: string): Promise<void> {
         const response = await fetch(`/api/v1/users/${id}`, {
             method: 'DELETE',
             headers: {
@@ -75,11 +91,11 @@ class UserService implements IUserService{
         });
         const data = await response.json();
         if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
+            throw new CustomError(response.status, data.error || 'Something went wrong');
         }
         return data;
     }
-    async patchUserById(id: string, body: PatchUserByIdBody): Promise<any> {
+    async patchUserById(id: string, body: PatchUserByIdBody): Promise<User> {
         const response = await fetch(`/api/v1/users/${id}`, {
             method: 'PATCH',
             headers: {
@@ -90,7 +106,7 @@ class UserService implements IUserService{
         });
         const data = await response.json();
         if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
+            throw new CustomError(response.status, data.error || 'Something went wrong');
         }
         return data;
     }

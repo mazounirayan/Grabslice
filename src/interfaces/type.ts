@@ -3,7 +3,7 @@ export type Project = {
     name: string;
     likes: number;
     comments: Comment[];
-    categories: Skill;
+    categories: Skill[];
     collaborators : User[];
     request : Slice[];
     createdAt: Date;
@@ -33,9 +33,10 @@ export type User = {
     lastName: string;
     email: string;
     password: string;
+    role: string;
     skills : Skill[];
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export type Slice = {

@@ -2,49 +2,19 @@ import TitleCard from "../components/HomePage/TitleCard"
 import PizzaCard from "@components/HomePage/pizzaCard";
 import image  from "../../public/images/pizza.png";
 import FilterCarousel from "@components/HomePage/filterBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
 import PizzaDetailPage from "@components/DetailsPage/PizzaDetailPage";
+import PizzaService from "@services/PizzaService";
+import { useNavigate } from "react-router-dom";
 interface PizzaCardProps {
   image: string;
   title: string;
   toppings: string;
   ingredients: { name: string; color: string }[];
 }
-const pizzas: PizzaCardProps[] = [
-  {
-    image: image,
-    title: "codeworks",
-    toppings: "java, react",
-    ingredients: [
-      { name: "java", color: INGREDIENT_TO_COLOR.JAVA },
-      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
-      { name: "sql", color: INGREDIENT_TO_COLOR.SQL }
-    ]
-  },
-  {
-    image: image,
-    title: "Veggie sql ",
-    toppings: "react, sql, lolo",
-    ingredients: [
-    
-      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
-      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
-      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
-    ]
-  },
-  {
-    image: image,
-    title: "Hawaiian website",
-    toppings: "next, sql",
-    ingredients: [
-      { name: "pearl", color: INGREDIENT_TO_COLOR.PEARL },
-      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
-      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
-    ]
-  }
-];
+
 const filterOptions = [
   { id: 'all', label: 'Tous' },
   { id: 'cat1', label: 'Catégorie 1' },
@@ -56,11 +26,35 @@ const filterOptions = [
 ];
 export default function MainPage() {
 const [activeFilter, setActiveFilter] = useState('all');
+const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
+
+  useEffect(() => {
+    PizzaService.GetPizzaList().then((data) => {
+      const val:PizzaCardProps[] = data.map((pizza) => {
+        return {
+          image: image,
+          title: pizza.name,
+          toppings: pizza.categories.map((category) => category.name).join(", "),
+          ingredients: pizza.categories.map((category) => {
+            return {
+              name: category.name,
+              color: INGREDIENT_TO_COLOR[category.name]
+            }
+          })
+        };
+      });
+      setPizzas(val);
+    });
+  },[]);
 
   const handleFilterSelect = (filterId: string) => {
     console.log(`Filtre sélectionné: ${filterId}`);
     setActiveFilter(filterId);
     // Votre logique de filtrage ici
+  };
+  const navigate = useNavigate();
+  const handleClick = (pizza : PizzaCardProps ) => {
+    navigate(`/profile/1`); // Redirige vers Profil avec l'ID de la pizza
   };
     return (
       <div>
@@ -78,7 +72,9 @@ const [activeFilter, setActiveFilter] = useState('all');
               <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
               <div className="grid grid-cols-3 gap-4">
                 {pizzas.map((pizza, index) => (
-                  <PizzaCard key={index} {...pizza} />
+                  <div key={index} onClick={() => handleClick(pizza)} className="cursor-pointer">
+                  <PizzaCard {...pizza} />
+                </div>
                 ))}
               </div>
             </div>
@@ -92,3 +88,6 @@ const [activeFilter, setActiveFilter] = useState('all');
 
     )
 }
+
+
+
