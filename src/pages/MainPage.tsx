@@ -61,21 +61,6 @@ const filterOptions = [
   { id: 'cat4', label: 'Catégorie 4' },
   { id: 'cat5', label: 'Catégorie 5' },
   { id: 'cat6', label: 'Catégorie 6' },
-  { id: 'all', label: 'Tous' },
-  { id: 'cat1', label: 'Catégorie 1' },
-  { id: 'cat2', label: 'Catégorie 2' },
-  { id: 'cat3', label: 'Catégorie 3' },
-  { id: 'cat4', label: 'Catégorie 4' },
-  { id: 'cat5', label: 'Catégorie 5' },
-  { id: 'cat6', label: 'Catégorie 6' },
-  { id: 'all', label: 'Tous' },
-  { id: 'cat1', label: 'Catégorie 1' },
-  { id: 'cat2', label: 'Catégorie 2' },
-  { id: 'cat35', label: 'Catégorie 3' },
-  { id: 'cat45', label: 'Catégorie 4' },
-  { id: 'cat55', label: 'Catégorie 5' },
-  { id: 'cat66', label: 'Catégorie 6-6' },
-  // Ajoutez autant d'options que nécessaire
 ];
 export default function MainPage() {
 const [activeFilter, setActiveFilter] = useState('all');
