@@ -4,6 +4,7 @@ import LoginPage from '../pages/LogginPage';
 import NotFound from '../pages/404';
 import ProfilePage from '@components/profilepage/profilePage';
 import PizzaDetailPage from '@components/DetailsPage/PizzaDetailPage';
+import UserLayout from '@layouts/UserOutlet';
 
 const routes: IRoute[] = [
     {
@@ -19,10 +20,18 @@ const routes: IRoute[] = [
         exact: true
     },
     {
-        path: '/profile',
-        name: 'profile Page',
-        component: ProfilePage,
-        exact: true
+        path: '/profile/:number',
+        name: 'profile Layout',
+        component: UserLayout,
+        exact: false,
+        children: [
+            {
+                path: '',
+                name: 'User Page',
+                component: ProfilePage,
+                exact: true
+            }
+        ]
     },
     {
         path: '/PizzaDetail',
