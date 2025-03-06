@@ -8,37 +8,64 @@ interface EventCardProps {
     users: { name: string; }[];
 }
 
-export default function EventCard (EventCardProps: EventCardProps) {
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+export default function EventCard({ image, title, description, date, users }: EventCardProps) {
+    const [likes, setLikes] = useState(0);
+    const [comments, setComments] = useState(0);
+    const [liked, setLiked] = useState(false);
+
+    const handleLike = () => {
+        setLikes(liked ? likes - 1 : likes + 1);
+        setLiked(!liked);
+    };
+
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure className="h-1/2">
-                <img src={EventCardProps.image} alt={EventCardProps.title} className="w-full h-full object-cover" />
+        <motion.div 
+            whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" }} 
+            className="card w-96 bg-white shadow-lg rounded-lg overflow-hidden"
+        >
+            {/* Image */}
+            <figure className="h-52">
+                <img src={image} alt={title} className="w-full h-full object-cover" />
             </figure>
-            <div className="card-body">
-                <h2 className="card-title">titre  : {EventCardProps.title}</h2>
-                <p>description : {EventCardProps.description}</p>
-                <p>date : {EventCardProps.date.toLocaleDateString()}</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                    {EventCardProps.users.map((user, index) => (
-                        <span
-                            key={index}
-                            className="rounded badge badge-lg"
-                            style={{ backgroundColor: "white" }}
-                        >
-                            <div className="badge"
-                            style={{ backgroundColor: "white" }}/>
-                            <p className='m-1'>
-                                {user.name}
+
+            {/* Contenu */}
+            <div className="p-4">
+                <h2 className="text-xl font-semibold">{title}</h2>
+                <p className="text-gray-500">{new Date(date).toLocaleDateString()}</p>
+                <p className="text-gray-700 mt-2 line-clamp-2">{description}</p>
+
+                {/* Participants */}
+                {users.length > 0 && (
+                    <div className="flex mt-3 space-x-2">
+                        {users.slice(0, 3).map((user) => (
+                            <p>
+                               {user.name} 
                             </p>
-                        </span>
-                    ))}
-                </div>
-                <div className="card-actions justify-start mt-4">
-                    <button className="btn btn-primary">Like</button>
-                    <button className="btn btn-secondary">Comment</button>
+                        ))}
+                        {users.length > 3 && <span className="text-gray-500">+{users.length - 3}</span>}
+                    </div>
+                )}
+
+                {/* Actions */}
+                <div className="flex items-center mt-4 space-x-4">
+                    <button 
+                        onClick={handleLike} 
+                        className={`px-4 py-2 rounded text-white ${liked ? "bg-red-500" : "bg-gray-400"} hover:bg-red-600`}
+                    >
+                        ❤️ {likes}
+                    </button>
+                    <button 
+                        onClick={() => setComments(comments + 1)} 
+                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        💬 {comments}
+                    </button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
