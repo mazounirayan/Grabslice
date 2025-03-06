@@ -47,3 +47,22 @@ export type Slice = {
     createdAt: Date;
     updatedAt: Date;
 }
+export interface UserProps{
+ user:{
+    name: string;
+    avatar: string;
+    username: string;
+    bio: string;
+    location?: string;
+    website?: string;
+    email?: string;
+    followers: number;
+    experience: string;
+    following: number;
+    pizzerias: { id: number; name: string; avatar: string }[];
+    skills: string[];
+    events: { id: number; name: string; date: string; location: string }[];
+    achievements: { id: number; title: string; contest: string }[];
+    pinnedPizzas: { id: number; name: string; description: string; stars: number; shares: number; style: string; styleColor: string }[];
+ } 
+}

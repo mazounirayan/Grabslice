@@ -20,6 +20,7 @@ export default function Burger({ isLogged }: BurgerProps) {
                         )
                     }
                     <li><a href='/about'>About</a></li>
+                    <li><a href='/profile'>profile</a></li>
                 </ul>
             </div>
         </div>

@@ -101,6 +101,7 @@ const [activeFilter, setActiveFilter] = useState('all');
               ))}
             </div>
           </div>
+          
       </div>
 
     )
