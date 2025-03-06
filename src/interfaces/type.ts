@@ -60,3 +60,17 @@ export interface UserProps{
     pinnedPizzas: Project[];
  } 
 }
+
+export type Event={
+    id: number;
+    title: string;
+    description: string;
+    comments: Comment[];
+    likes: number;
+    users: User[];
+    date: Date;
+    location: string
+    createdAt: Date;
+    updatedAt: Date;
+
+}

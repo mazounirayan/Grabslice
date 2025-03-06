@@ -5,6 +5,7 @@ import NotFound from '../pages/404';
 import ProfilePage from '@components/profilepage/profilePage';
 import PizzaDetailPage from '@components/DetailsPage/PizzaDetailPage';
 import UserLayout from '@layouts/UserOutlet';
+import EventPage from '@components/EventPage/EventPage';
 
 const routes: IRoute[] = [
     {
@@ -51,6 +52,19 @@ const routes: IRoute[] = [
         component: NotFound,
         exact: true
     },
+    {
+        path: '/Events',
+        name: 'Event Page',
+        component: EventPage,
+        exact: true
+    },
+    // {
+    //     path: '//EventPage/:id',
+    //     name: 'Event Detail Page',
+    //     component: EventDetailPage,
+    //     exact: true
+    // },
+
 ]
 
 export default routes;
