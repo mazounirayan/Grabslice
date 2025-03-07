@@ -8,7 +8,7 @@ const AchievementProfile  : React.FC<UserProps> = ({user}) => {
                     <FaAward /> Récompenses et distinctions
                   </h2>
                   <div className="space-y-4">
-                    {user.achievements.map(achievement => (
+                    {user.events.map(achievement => (
                       <div key={achievement.id} className="p-4 border-2 border-orange-200 rounded-lg bg-yellow-50">
                         <div className="flex gap-3">
                           <div className="text-yellow-600">

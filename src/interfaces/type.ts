@@ -1,4 +1,6 @@
 export type Project = {
+    description: string;
+    slices: number;
     id: number;
     name: string;
     likes: number;
