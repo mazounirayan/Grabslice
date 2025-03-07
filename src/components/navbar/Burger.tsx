@@ -14,12 +14,7 @@ export default function Burger({ isLogged }: BurgerProps) {
                 </div>
                 <ul tabIndex={0} className="text-4xl menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52">
                     <li><a href='/' >Homepage</a></li>
-                    {
-                        isLogged && (
-                            <li><a href='/eventList'>Event List</a></li>
-                        )
-                    }
-                    <li><a href='/about'>About</a></li>
+                    {/* <li><a href='/about'>About</a></li> */}
                     <li><a href='/profile/1'>profile</a></li>
                     {/* <li><a href='/PizzaDetail/1'>PizzaDetailPage</a></li> */}
                     <li><a href='/Events'>EventPage</a></li>

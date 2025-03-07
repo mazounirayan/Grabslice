@@ -29,14 +29,14 @@ export default function UserBtn({ notif,userData }: UserBtnProps) {
                     {notif && <span className="badge badge-xs badge-info indicator-item"></span>}
                 </div>
                 {
-                localStorage.getItem('token') != null ? (
+                localStorage.getItem('token') == null ? (
                     <ul className="menu dropdown-content w-48 bg-base-100 text-neutral shadow-lg rounded-md origin-top-right right-0">
                         <li>
                             <a href={`/profile/${userData?.id}`} className="block px-4 py-2 text-sm">Profile</a>
                         </li>
-                        <li>
+                        {/* <li>
                             <button onClick={handleLogout} className="block px-4 py-2 text-sm">Logout</button>
-                        </li>
+                        </li> */}
                     </ul>
                 ) : (
                     <ul className="menu dropdown-content w-48 bg-base-100 text-neutral shadow-lg rounded-md origin-top-right right-0">

@@ -43,7 +43,7 @@ export default function PizzaCard (PizzaCardProps: PizzaCardProps) {
             <div className="card-actions flex justify-start items-center mt-4 gap-x-2">
                 <button className="btn btn-primary">Like</button>
                 <button className="btn btn-secondary">Comment</button>
-                <button onClick={() => handleClick(PizzaCardProps.id)} className="btn btn-accent">
+                <button onClick={() => handleClick(1)} className="btn btn-accent">
                     Voir détails
                 </button>
             </div>

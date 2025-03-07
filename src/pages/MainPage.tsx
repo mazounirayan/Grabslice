@@ -13,6 +13,40 @@ interface PizzaCardProps {
   ingredients: { name: string; color: string }[];
 }
 
+const pizzas_test: PizzaCardProps[] = [
+  {
+    image: image,
+    title: "codeworks",
+    toppings: "java, react",
+    ingredients: [
+      { name: "java", color: INGREDIENT_TO_COLOR.JAVA },
+      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL }
+    ]
+  },
+  {
+    image: image,
+    title: "Veggie sql ",
+    toppings: "react, sql, lolo",
+    ingredients: [
+    
+      { name: "react", color: INGREDIENT_TO_COLOR.REACT },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
+      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
+    ]
+  },
+  {
+    image: image,
+    title: "Hawaiian website",
+    toppings: "next, sql",
+    ingredients: [
+      { name: "pearl", color: INGREDIENT_TO_COLOR.PEARL },
+      { name: "sql", color: INGREDIENT_TO_COLOR.SQL },
+      { name: "lolo", color: INGREDIENT_TO_COLOR.OTHER }
+    ]
+  }
+];
+
 const filterOptions = [
   { id: 'all', label: 'Tous' },
   { id: 'cat1', label: 'Catégorie 1' },
@@ -27,23 +61,24 @@ const [activeFilter, setActiveFilter] = useState('all');
 const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
 
   useEffect(() => {
-    PizzaService.GetPizzaList(10,1).then((data) => {
-      const val:PizzaCardProps[] = data.map((pizza) => {
-        return {
-          id:1,
-          image: image,
-          title: pizza.name,
-          toppings: pizza.categories.map((category) => category.name).join(", "),
-          ingredients: pizza.categories.map((category) => {
-            return {
-              name: category.name,
-              color: INGREDIENT_TO_COLOR[category.name]
-            }
-          })
-        };
-      });
-      setPizzas(val);
-    });
+    setPizzas(pizzas_test);
+    // PizzaService.GetPizzaList(10,1).then((data) => {
+    //   const val:PizzaCardProps[] = data.map((pizza) => {
+    //     return {
+    //       id:1,
+    //       image: image,
+    //       title: pizza.name,
+    //       toppings: pizza.categories.map((category) => category.name).join(", "),
+    //       ingredients: pizza.categories.map((category) => {
+    //         return {
+    //           name: category.name,
+    //           color: INGREDIENT_TO_COLOR[category.name]
+    //         }
+    //       })
+    //     };
+    //   });
+    //   setPizzas(val);
+    // });
   },[]);
 
   const handleFilterSelect = (filterId: string) => {
