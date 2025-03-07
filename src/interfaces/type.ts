@@ -64,7 +64,8 @@ export interface UserProps{
     achievements?: { id: number; title: string; contest: string }[];
     pinnedPizzas: Project[];
     image: string;
- } 
+ } ,
+ updateUser: (user: UserProps['user']) => void;
 }
 
 type UsersForEvent={

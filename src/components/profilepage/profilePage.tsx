@@ -9,9 +9,19 @@ const ProfilePage = () => {
   // Données simulées du profil d'un pizzaiolo
 
 
-  const pizzas = PizzaService.GetPizzaList();
+  const pizzas = PizzaService.GetPizzaList(10, 1);
 
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<{ 
+    name: string; 
+    image: string; 
+    username: string; 
+    email: 'sid.arifi@grabapizza.slice' | undefined,
+    experience: Date; 
+    skills: { id: number; name: string; shapeName: string; createdAt: Date; updatedAt: Date; }[]; 
+    events: { id: number; name: string; date: string; location: string; }[]; 
+    achievements?: { id: number; name: string; date: string; }[]; 
+    pinnedPizzas?: { id: number; name: string; }[]; 
+  }>({
     name: 'Sid ARIFI',
     image: "/svg/bacon.svg",
     username: 'PizzaMaster42',
@@ -30,7 +40,7 @@ const ProfilePage = () => {
     ],
   });
 
-  const updateUser = (updatedUser) => {
+  const updateUser = (updatedUser: React.SetStateAction<{ name: string; image: string; username: string; email: 'sid.arifi@grabapizza.slice' | undefined; experience: Date; skills: { id: number; name: string; shapeName: string; createdAt: Date; updatedAt: Date; }[]; events: { id: number; name: string; date: string; location: string; }[]; achievements?: { id: number; name: string; date: string; }[]; pinnedPizzas?: { id: number; name: string; }[]; }>) => {
     setUser(updatedUser);
   };
 
@@ -43,8 +53,8 @@ const ProfilePage = () => {
         <div className="md:w-3/4">
           <div className="bg-white rounded-xl shadow-md p-4 border-2 border-orange-300">
             
-            <CreationProfile user={user} />
-            < SliceProfile user={user} /> 
+          <CreationProfile user={user} />
+          < SliceProfile user={user} /> 
           <EventProfile user={user} />
           {/*< AchievementProfile user={user} /> */}
          
