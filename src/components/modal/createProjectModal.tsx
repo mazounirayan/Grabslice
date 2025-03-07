@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaTimes, FaPlus, FaCode } from "react-icons/fa";
+import { text } from "stream/consumers";
 
 // Images pour les toppings (à remplacer par des imports réels)
 const placeholderImages: { [key: string]: string } = {
@@ -17,7 +18,7 @@ interface Language {
   name: string;
 }
 
-export default function LanguageCompositionModal() {
+export default function   LanguageCompositionModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
@@ -110,7 +111,7 @@ export default function LanguageCompositionModal() {
           {/* Contenu de la modale */}
           <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-90vh overflow-auto">
             <div className="flex justify-between items-center p-6 border-b">
-              <h2 className="text-2xl font-bold">Composer une nouvelle pizza</h2>
+              <h2 className="text-2xl text-black font-bold">Composer une nouvelle pizza</h2>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -121,15 +122,15 @@ export default function LanguageCompositionModal() {
 
             <div className="p-6">
               {/* Nom du pizza */}
-              <div className="mb-6">
-                <label className="block text-gray-700 mb-2 font-medium">
+              <div className="mb-6 block text-gray-700 ">
+                <label className=" mb-2 font-medium">
                   Nom de la pizza
                 </label>
                 <input
                   type="text"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400 z-99"
                   placeholder="Entrez le nom de votre pizza"
                 />
               </div>
@@ -137,7 +138,7 @@ export default function LanguageCompositionModal() {
              
               
               {/* Nom du pizza */}
-              <div className="mb-6">
+              <div className="mb-6  block text-gray-700">
                 <label className="block text-gray-700 mb-2 font-medium">
                   Description de la pizza
                 </label>
@@ -149,7 +150,7 @@ export default function LanguageCompositionModal() {
                   placeholder="Entrez le nom de votre pizza"
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6  block text-gray-700">
                 {/* Sélection des toppings */}
                 <div className="md:col-span-1">
                   <h3 className="text-lg font-semibold mb-3">
@@ -170,7 +171,7 @@ export default function LanguageCompositionModal() {
                       selectedLanguages.map((lang) => (
                         <div
                           key={lang.id}
-                          className="flex items-center justify-center border p-4 rounded-lg"
+                          className="flex items-center justify-center border p-4 rounded-lg  block text-gray-700"
                         >
                           <img
                             src={placeholderImages[lang.name]}

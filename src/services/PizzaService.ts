@@ -21,7 +21,7 @@ interface IPizzaService {
     removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<void>;
 }
 
-const BASE_URL = '/project/';
+const BASE_URL = '/api/project/';
 
 class PizzaService implements IPizzaService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

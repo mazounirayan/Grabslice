@@ -30,9 +30,9 @@ export default function Header() {
                 <a className="btn btn-ghost text-xl">{COMPANY_TITLE}</a>
             </div>
             <div className="navbar-end">
-                {isLogged && (
+                {/* {isLogged && ( */}
                     <LanguageCompositionModal/>
-                )}
+                {/* )} */}
                 {/* <ContactForm short={true} /> */}
                 
                 <UserBtn notif={true} userData={user} />
