@@ -1,4 +1,4 @@
-
+import React, { useState } from 'react';
 import SidebarProfile from './ProfileSidebar';
 import EventProfile from './eventProfile';
 import AchievementProfile from './achievementProfile';
@@ -10,7 +10,7 @@ const ProfilePage = () => {
 
   const pizzas = PizzaService.GetPizzaList();
 
-  const user = {
+  const [user, setUser] = useState({
     name: 'Sid ARIFI',
     username: 'PizzaMaster42',
     email: 'sid.arifi@grabapizza.slice',
@@ -22,7 +22,7 @@ const ProfilePage = () => {
       { id: 1, name: 'Pizza Party Summer Bash', date: '15 Août 2025', location: 'Central Park' },
       { id: 2, name: 'Workshop Pâte Parfaite', date: '22 Mars 2025', location: 'La Scuola della Pizza' }
     ],
-  };
+  });
 
   return (
     <div className="container mx-auto px-4 py-8 bg-amber-50">

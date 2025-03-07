@@ -30,7 +30,7 @@ class EventService implements IEventService {
         const Events: Event[] = [];
        
         const participantList=[{id:1, name: "help"}, {id:2, name: "wanted"}];
-        const participantList2=[{id:1, name: "help"}, {id:2, name: "wanted"}, {id:4, name: "wanttted"}];
+        const participantList2=[{id:1, name: "hoh"}, {id:2, name: "wed"}, {id:4, name: "wanttted"}];
         
         Events.push({
             id: 1,
@@ -42,7 +42,8 @@ class EventService implements IEventService {
             date: new Date(),
             location: "nowhere",
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            image: ''
         });
         Events.push({
             id: 2,
@@ -55,6 +56,7 @@ class EventService implements IEventService {
             location: "everywhere",
             createdAt: new Date(),
             updatedAt: new Date(),
+            image: ''
         });
         return Events;
 

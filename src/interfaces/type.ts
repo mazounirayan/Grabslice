@@ -69,6 +69,7 @@ type UsersForEvent={
     name: string
 }
 export type Event={
+    image: string;
     id: number;
     title: string;
     description: string;
