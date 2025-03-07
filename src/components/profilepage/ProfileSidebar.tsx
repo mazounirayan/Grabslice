@@ -1,3 +1,4 @@
+import EditUserModal from "@components/modal/ModifyProfileModal";
 import { UserProps } from "@interfaces/type";
 import { FaEnvelope, FaPizzaSlice } from "react-icons/fa";
 
@@ -24,7 +25,11 @@ return (
             
 
             <p className="mb-4 font-medium text-gray-800">{user.experience.toUTCString()}</p>
-            
+            <div className="flex justify-center w-full">
+              <div className="p-4"> {/* Ajoutez du padding ici */}
+                <EditUserModal user={user} />
+              </div>
+            </div>
             <button className="btn bg-red-600 hover:bg-red-700 text-white border-none btn-block mb-4">
               Collaborer sur une pizza
             </button>
