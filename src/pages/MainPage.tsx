@@ -1,4 +1,3 @@
-import TitleCard from "../components/HomePage/TitleCard"
 import PizzaCard from "@components/HomePage/pizzaCard";
 import image  from "../../public/images/pizza.png";
 import FilterCarousel from "@components/HomePage/filterBar";
@@ -6,7 +5,6 @@ import { useEffect, useState } from "react";
 import ToppingListFilter from "@components/HomePage/ToppingListFilter";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
 import PizzaService from "@services/PizzaService";
-import { useNavigate } from "react-router-dom";
 interface PizzaCardProps {
   id: number;
   image: string;
@@ -29,7 +27,7 @@ const [activeFilter, setActiveFilter] = useState('all');
 const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
 
   useEffect(() => {
-    PizzaService.GetPizzaList().then((data) => {
+    PizzaService.GetPizzaList(10,1).then((data) => {
       const val:PizzaCardProps[] = data.map((pizza) => {
         return {
           id:1,
@@ -72,7 +70,7 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
             <div className="p-2">
               <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
               <div className="grid grid-cols-3 gap-4">
-                {pizzas.map((pizza, index) => (
+                {pizzas.map((pizza) => (
                   // <div key={index} onClick={() => handleClick(pizza)} className="cursor-pointer"> {/* </div> */}
                   <PizzaCard {...pizza} />
                
