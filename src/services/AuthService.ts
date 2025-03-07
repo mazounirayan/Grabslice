@@ -1,116 +1,63 @@
 import { CustomError } from '../commons/Error';
 
-interface IAuthService {
-    login(username: string, password: string): Promise<any>;
-    logout(): Promise<any>;
-    register(username: string, password: string): Promise<any>;
-}
-
 export interface LogRegResponse {
   token: string;
-  user: {
-      id: string;
-      email: string;
-      role: string;
-  };
 }
 
-export interface LogoutResponse{
-  message:string;
-}
+const BASE_URL = '/api/auth/';
 
-const BASE_URL = '/api/auth/'
+class AuthService {
+  /**
+   * Login function that sends user credentials to the backend.
+   * @param email User email
+   * @param password User password
+   * @returns Token if successful, or an error
+   */
+  async login(email: string, password: string): Promise<LogRegResponse | CustomError> {
+    const body = { email, password };
 
-class AuthService{
-    async login(email: string, password: string): Promise<LogRegResponse|CustomError> {
+    try {
+      const response = await fetch(BASE_URL + 'login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
 
-      return {
-        token: "ddddd",
-        user: {
-            id: "1",
-            email: email,
-            role: "admin",
-        }
-      }
-      
+      const data = await response.text(); // Le back renvoie un simple string (le token)
 
-        const body = {
-            email: email,
-            password: password,
-        };
-        try {
-            const response = await fetch(BASE_URL+'login', {
-              body: JSON.stringify(body),
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-            });
-            const data = await response.json();
-      
-            if (!response.ok) {
-              return new CustomError(response.status, data.error || 'Something went wrong');
-            }
-            localStorage.setItem('token', data.token);
-            return data as LogRegResponse;
-          } catch (error) {
-            return new CustomError(500, 'Network error or server not reachable');
-          }
-    }
-
-    async logout(): Promise<LogoutResponse|CustomError> {
-        try{
-          const response = await fetch(BASE_URL+'logout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-          const data = await response.json();
-          if (!response.ok) {
-            return new CustomError(response.status, data.error || 'Something went wrong');
-          }
-          localStorage.removeItem('token');
-          return data as LogoutResponse;
-        }catch(error){
-          return new CustomError(500, 'Network error or server not reachable');
-        }
-     }
-
-    async register(email: string, password: string, name: string, lastName: string): Promise<LogRegResponse|CustomError> {
-
-      return {
-        token: "ddddd",
-        user: {
-            id: "1",
-            email: email,
-            role: "admin",
-        }
+      if (!response.ok) {
+        return new CustomError(response.status, 'Invalid email or password');
       }
 
-        const body = {
-            email: email,
-            password: password,
-            name: name,
-            lastName: lastName
-        };
-        try {
-            const response = await fetch(BASE_URL+'signup', {
-              body: JSON.stringify(body),
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-            });
-            const data = await response.json();
-      
-            if (!response.ok) {
-              console.log(data.error);
-              return new CustomError(response.status, data.error || 'Something went wrong');
-            }
-            localStorage.setItem('token', data.token);
-            return data as LogRegResponse;
-          } catch (error) {
-            return new CustomError(500, 'Network error or server not reachable');
-          }
+      localStorage.setItem('token', data);
+      return { token: data };
+    } catch (error) {
+      return new CustomError(500, 'Network error or server not reachable');
     }
+  }
+
+  /**
+   * Logs out the user by removing the token from local storage.
+   */
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+  /**
+   * Get the stored token from local storage.
+   * @returns Token string or null
+   */
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  /**
+   * Check if a user is authenticated based on token presence.
+   * @returns true if a token is stored, false otherwise
+   */
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
 }
 
 export default new AuthService();
