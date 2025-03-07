@@ -46,10 +46,10 @@ export type Slice = {
     project: Project;
     sender: User;
     categories: Skill[];
-    comments: Comment[];
-    likes: number;
-    createdAt: Date;
-    updatedAt: Date;
+    comments?: Comment[];
+    likes?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 export interface UserProps{
  user:{
@@ -79,7 +79,7 @@ export type Event={
     users: UsersForEvent[] ;
     date: Date;
     location: string
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 
 }

@@ -134,3 +134,5 @@ class SliceService implements ISliceService {
     }
 
 }
+
+export default new SliceService();

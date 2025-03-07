@@ -19,7 +19,7 @@ export interface LogoutResponse{
   message:string;
 }
 
-const BASE_URL = '/api/v1/auth/'
+const BASE_URL = '/api/auth/'
 
 class AuthService{
     async login(email: string, password: string): Promise<LogRegResponse|CustomError> {

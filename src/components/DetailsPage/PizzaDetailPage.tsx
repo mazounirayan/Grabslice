@@ -6,6 +6,8 @@ import { useModal } from "@components/serviceable/modal.service";
 import SendSliceModal from "./sendSliceModal";
 import { Skill } from "@interfaces/type";
 import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
+import SliceService from "@services/SliceService";
+import { body } from "framer-motion/client";
 
 interface Pizza {
     id: number;
@@ -131,6 +133,11 @@ export default function PizzaDetailPage() {
         content: <SendSliceModal toppings={pizza!.toppings}/>,
         onSubmit: (data: {email:string, toppings:string[]}) => {
             addToast("Sent slice to : "+data.email, ToastType.SUCCESS);
+            const body = {
+                recipient: data.email,
+                toppings: data.toppings
+            }
+            SliceService.CreateSlice(body);
             console.log("Submitted data:", data);
         },
         validationRules: {
