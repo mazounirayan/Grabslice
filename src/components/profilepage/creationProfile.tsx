@@ -7,19 +7,39 @@ export default function CreationProfile ({user} : UserProps) {
   const [pinnedPizzas, setPinnedPizzas] = useState<Project[]>([])
 
   useEffect(() => {
-    const fetchPinnedPizzas = async () => {
-      if (!user.pinnedPizzas) return;
+    const pizzas = []
+    pizzas.push({
+      id: 1,
+      name: "React web app",
+      likes: 10
+    })
+    pizzas.push({
+      id: 2,
+      name: "Hackaton",
+      likes: 1
+    })
+    pizzas.push({
+      id: 3,
+      name: "Rust Project",
+      likes: 30
+    })
+    setPinnedPizzas(pizzas)
+  },[])
+
+  // useEffect(() => {
+  //   const fetchPinnedPizzas = async () => {
+  //     if (!user.pinnedPizzas) return;
       
-      try {
-        const pizzas = await user.pinnedPizzas; // Await the fulfilled promise
-        setPinnedPizzas(pizzas);
-      } catch (error) {
-        console.error("Error fetching pinned pizzas:", error);
-      }
-    };
+  //     try {
+  //       const pizzas = await user.pinnedPizzas; // Await the fulfilled promise
+  //       setPinnedPizzas(pizzas);
+  //     } catch (error) {
+  //       console.error("Error fetching pinned pizzas:", error);
+  //     }
+  //   };
   
-    fetchPinnedPizzas();
-  }, [user.pinnedPizzas]);
+  //   fetchPinnedPizzas();
+  // }, [user.pinnedPizzas]);
 
     return (
         <div >
@@ -32,7 +52,7 @@ export default function CreationProfile ({user} : UserProps) {
             <div className="card-body p-4 pl-1/3"  >
               <div className="flex justify-between items-start">
                 <h3 className="card-title text-red-600 text-lg hover:underline">
-                  <a href="#">{pizza.name}</a>
+                  <a>{pizza.name}</a>
                 </h3>
               </div>
               <p className="text-sm text-gray-600">PlaceHolder</p>
