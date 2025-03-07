@@ -1,23 +1,27 @@
 import { useParams } from "react-router-dom";
 import image  from "../../../public/images/pizza.png";
+import { useToast } from '@context/ToastManager';
+import { ToastType } from "@enum/toast";
+import { useModal } from "@components/serviceable/modal.service";
+import SendSliceModal from "./sendSliceModal";
+import { Skill } from "@interfaces/type";
+import { INGREDIENT_TO_COLOR } from "@assets/values/imgPath";
 
 interface Pizza {
     id: number;
     image: string;
     name: string;
-    toppings: string;
     description: string;
-    ingredients: { name: string; color: string }[];
+    toppings: Skill[];
     style: string;
-    styleColor: string;
     stars: number;
     shares: number;
     pizzaiolos: {
         id: number,
         name: string,
+        lastName: string,
         avatar: string,
-        experience: string,
-        specialties: [string, string, string],
+        specialties: Skill[]
     }[];
 }
 const pizzas: Pizza[] = [
@@ -25,37 +29,92 @@ const pizzas: Pizza[] = [
         id: 1,
         image: image,
         name: "Quattro Formaggi Supreme",
-        toppings: "Mozzarella, Gorgonzola, Parmesan, Ricotta",
         description: "Ma création signature avec quatre fromages italiens premium et miel de truffe.",
-        ingredients: [
-            { name: "Mozzarella", color: "#f1e05a" },
-            { name: "Gorgonzola", color: "#2b7489" },
+        toppings: [
+            {
+                id: 1,
+                name: "Rust",
+                shapeName: "Napolitaine",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                id: 3,
+                name: "SQL",
+                shapeName: "Napolitaine",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
         ],
         style: "Napolitaine",
-        styleColor: "#f1e05a",
         stars: 124,
         shares: 34,
         pizzaiolos: [
             {
                 id: 1,
-                name: "Giovanni Rossi",
+                name: "Giovanni",
+                lastName: "Rossi",
                 avatar: "https://randomuser.me/api/portraits/men/10.jpg",
-                experience: "5 ans d'expérience",
-                specialties: ["Napolitaine", "Focaccia", "Pâte fine"],
+                specialties: [
+                    {
+                    id: 1,
+                    name: "Rust",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                    {
+                    id: 2,
+                    name: "JS",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                    {
+                    id: 3,
+                    name: "SQL",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                ],
             },
             {
                 id: 2,
-                name: "Mario Bianchi",
+                name: "Mario",
+                lastName: "Bianchi",
                 avatar: "https://randomuser.me/api/portraits/men/11.jpg",
-                experience: "7 ans d'expérience",
-                specialties: ["New York Style", "Deep Dish", "Pâte épaisse"],
+                specialties: [
+                    {
+                    id: 1,
+                    name: "Rust",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                ],
             },
             {
                 id: 3,
-                name: "Sofia Romano",
+                name: "Sofi",
+                lastName: "Romano",
                 avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-                experience: "4 ans d'expérience",
-                specialties: ["Sicilienne", "Margherita", "Sans gluten"],
+                specialties: [
+                    {
+                    id: 4,
+                    name: "React",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                    {
+                    id: 5,
+                    name: "TypeScript",
+                    shapeName: "Napolitaine",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                    },
+                ],
             },
         ],
     },
@@ -63,8 +122,42 @@ const pizzas: Pizza[] = [
 
 export default function PizzaDetailPage() {
     const { id } = useParams<{ id: string }>();
-   //const   id = 1 ;
     const pizza = pizzas.find(p => p.id === Number(id));
+
+    const { openModal } = useModal();
+
+    const sendSliceModalConfig = {
+        title: "Send a slice",
+        content: <SendSliceModal toppings={pizza!.toppings}/>,
+        onSubmit: (data: {email:string, toppings:string[]}) => {
+            addToast("Sent slice to : "+data.email, ToastType.SUCCESS);
+            console.log("Submitted data:", data);
+        },
+        validationRules: {
+            email: (value: any) => value ? null : "Email is required",
+            toppings: (value: any) => value && value.length > 0 ? null : "At least one topping must be selected",
+          },
+    };
+
+    const { addToast } = useToast(); 
+
+
+   //const   id = 1 ;
+
+
+    const ask_slice =  () => {
+            try {
+                console.log(localStorage.getItem('token'));
+                let str_msg = "You asked for a slice from : ";
+                const pizzaiolo_str = pizza!.pizzaiolos.length > 2 ?  pizza?.pizzaiolos.slice(0,2).map(pizzaiolo => pizzaiolo.name).join(", ") + ",..." : pizza?.pizzaiolos.map(pizzaiolo => pizzaiolo.name).join(", ") ;
+                addToast(str_msg + pizzaiolo_str, ToastType.SUCCESS);
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        };
+    const send_slice = () => {
+        openModal(sendSliceModalConfig);
+    };
 
     if (!pizza) {
         return <p className="text-center text-red-500">Pizza not found!</p>;
@@ -78,8 +171,8 @@ export default function PizzaDetailPage() {
             <p className="text-gray-700 mt-2">{pizza.description}</p>
             <h3 className="text-xl font-semibold mt-4">Ingrédients :</h3>
             <div className="flex flex-wrap gap-2 mt-2">
-                {pizza.ingredients.map((ingredient, index) => (
-                    <span key={index} className="badge px-3 py-1 rounded-md" style={{ backgroundColor: ingredient.color }}>
+                {pizza.toppings.map((ingredient, index) => (
+                    <span key={index} className="badge px-3 py-1 rounded-md" style={{ backgroundColor: INGREDIENT_TO_COLOR[ingredient.name] }}>
                         {ingredient.name}
                     </span>
                 ))}
@@ -94,8 +187,8 @@ export default function PizzaDetailPage() {
                 ))}
             </div>
             <div className="flex gap-4 mt-6">
-                <button className="btn btn-primary">Partager une part</button>
-                <button className="btn btn-secondary">Demander une part</button>
+                <button onClick={send_slice} className="btn btn-primary">Partager une part</button>
+                <button onClick={ask_slice} className="btn btn-secondary">Demander une part</button>
             </div>
         </div>
     </div>

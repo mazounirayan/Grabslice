@@ -44,6 +44,9 @@ export type User = {
 export type Slice = {
     id: number;
     name: string;
+    recipient: User;
+    project: Project;
+    sender: User;
     categories: Skill[];
     comments: Comment[];
     likes: number;
@@ -59,6 +62,8 @@ export interface UserProps{
     skills: Skill[];
     events: { id: number; name: string; date: string; location: string }[];
     achievements?: { id: number; title: string; contest: string }[];
+    pinnedPizzas: Project[];
+    image: string;
  } 
 }
 
