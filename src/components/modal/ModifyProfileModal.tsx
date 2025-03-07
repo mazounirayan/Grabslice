@@ -7,11 +7,11 @@ const availableImages = [
     "/svg/crevette.svg",
     "/svg/tomate.svg"
   ];
-export default function EditUserModal({ user }) {
+export default function EditUserModal({ user ,updateUser}) {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [profileImage, setProfileImage] = useState(user.profileImage || availableImages[0]);
+  const [image, setImage] = useState(user.image || availableImages[0]);
   const [errors, setErrors] = useState({ name: "", email: "" });
 //   const handleImageChange = (e) => {
 //     const file = e.target.files[0];
@@ -23,19 +23,17 @@ export default function EditUserModal({ user }) {
 //       reader.readAsDataURL(file);
 //     }
 //   };
-  const handleSave = () => {
-    const newErrors = { name: "", email: "" };
-    if (!name) newErrors.name = "Le nom est requis";
-    if (!email) newErrors.email = "L'email est requis";
+const handleSave = () => {
+    const updatedUser = {
+      ...user,
+      name,
+      image, 
+      email,
 
-    if (newErrors.name || newErrors.email) {
-      setErrors(newErrors);
-      return;
-    }
-
-    onSave({ name, email });
+    };
+    updateUser(updatedUser);
     setIsOpen(false);
-  };
+};
 
   return (
     <>
@@ -54,15 +52,15 @@ export default function EditUserModal({ user }) {
             <div className="p-6">
               <div className="space-y-4">
                 <div className="flex flex-col items-center">
-                    <img src={profileImage || "/images/svgPizza.svg"} alt="Profile" className="w-24 h-24 rounded-full object-cover border" />
+                    <img src={image || "/images/svgPizza.svg"} alt="Profile" className="w-24 h-24 rounded-full object-cover border" />
                     <div className="grid grid-cols-4 gap-2 mt-4">
                         {availableImages.map((img) => (
                     <img
                       key={img}
                       src={img}
                       alt="avatar"
-                      className={`w-16 h-16 rounded-full cursor-pointer border-2 ${profileImage === img ? "border-blue-500" : "border-gray-300"}`}
-                      onClick={() => setProfileImage(img)}
+                      className={`w-16 h-16 rounded-full cursor-pointer border-2 ${image === img ? "border-blue-500" : "border-gray-300"}`}
+                      onClick={() => setImage(img)}
                     />
                   ))}
                 </div>

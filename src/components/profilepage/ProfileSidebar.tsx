@@ -2,7 +2,7 @@ import EditUserModal from "@components/modal/ModifyProfileModal";
 import { UserProps } from "@interfaces/type";
 import { FaEnvelope, FaPizzaSlice } from "react-icons/fa";
 
-export default function  SidebarProfile ({user}:UserProps) {
+export default function  SidebarProfile ({user, updateUser}:UserProps) {
 
   user.experience = new Date();
 
@@ -11,7 +11,7 @@ return (
           <div className="flex flex-col items-center md:items-start bg-white p-6 rounded-xl shadow-md border-2 border-orange-300">
             <div className="relative">
               <img 
-              
+                src={user.image}
                 alt={user.name} 
                 className="w-64 h-64 rounded-full border-4 border-red-500"
               />
@@ -27,7 +27,7 @@ return (
             <p className="mb-4 font-medium text-gray-800">{user.experience.toUTCString()}</p>
             <div className="flex justify-center w-full">
               <div className="p-4"> {/* Ajoutez du padding ici */}
-                <EditUserModal user={user} />
+                <EditUserModal user={user} updateUser={updateUser} />
               </div>
             </div>
             <button className="btn bg-red-600 hover:bg-red-700 text-white border-none btn-block mb-4">

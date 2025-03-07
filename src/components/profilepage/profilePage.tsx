@@ -12,6 +12,7 @@ const ProfilePage = () => {
 
   const [user, setUser] = useState({
     name: 'Sid ARIFI',
+    image: "/svg/bacon.svg",
     username: 'PizzaMaster42',
     email: 'sid.arifi@grabapizza.slice',
     experience: new Date(),
@@ -24,11 +25,16 @@ const ProfilePage = () => {
     ],
   });
 
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
+
   return (
     <div className="container mx-auto px-4 py-8 bg-amber-50">
       <div className="flex flex-col md:flex-row gap-8">
       
-        <SidebarProfile user={user} />
+        <SidebarProfile user={user} updateUser={updateUser}/>
         <div className="md:w-3/4">
           <div className="bg-white rounded-xl shadow-md p-4 border-2 border-orange-300">
             

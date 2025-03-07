@@ -61,6 +61,7 @@ export interface UserProps{
     events: { id: number; name: string; date: string; location: string }[];
     achievements?: { id: number; title: string; contest: string }[];
     pinnedPizzas: Project[];
+    image: string;
  } 
 }
 
