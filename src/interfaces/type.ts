@@ -1,4 +1,6 @@
 export type Project = {
+    description: string;
+    slices: number;
     id: number;
     name: string;
     likes: number;
@@ -57,7 +59,6 @@ export interface UserProps{
     skills: Skill[];
     events: { id: number; name: string; date: string; location: string }[];
     achievements?: { id: number; title: string; contest: string }[];
-    pinnedPizzas: Project[];
  } 
 }
 

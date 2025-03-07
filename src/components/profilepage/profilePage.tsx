@@ -4,6 +4,7 @@ import EventProfile from './eventProfile';
 import AchievementProfile from './achievementProfile';
 import CreationProfile from './creationProfile';
 import PizzaService from '@services/PizzaService';
+import SliceProfile from './sliceProfile';
 const ProfilePage = () => {
   // Données simulées du profil d'un pizzaiolo
 
@@ -15,9 +16,13 @@ const ProfilePage = () => {
     username: 'PizzaMaster42',
     email: 'sid.arifi@grabapizza.slice',
     experience: new Date(),
-    skills: [{ id: 1, name: 'Rust', shapeName: 'Dough' }, { id: 2, name: 'Java', shapeName: 'Sauce' }, { id: 3, name: 'Pearl', shapeName: 'Toppings' }],
+    skills: [
+      { id: 1, name: 'Rust', shapeName: 'Dough', createdAt: new Date(), updatedAt: new Date() },
+      { id: 2, name: 'Java', shapeName: 'Sauce', createdAt: new Date(), updatedAt: new Date() },
+      { id: 3, name: 'Pearl', shapeName: 'Toppings', createdAt: new Date(), updatedAt: new Date() }
+    ],
+ 
 
-    pinnedPizzas: pizzas,
     events: [
       { id: 1, name: 'Pizza Party Summer Bash', date: '15 Août 2025', location: 'Central Park' },
       { id: 2, name: 'Workshop Pâte Parfaite', date: '22 Mars 2025', location: 'La Scuola della Pizza' }
@@ -33,11 +38,9 @@ const ProfilePage = () => {
           <div className="bg-white rounded-xl shadow-md p-4 border-2 border-orange-300">
             
             <CreationProfile user={user} />
-            
+            < SliceProfile user={user} /> 
           <EventProfile user={user} />
-            
-          {/* <AchievementProfile user={user} /> */}
-            
+          {/*< AchievementProfile user={user} /> */}
          
           </div>
         </div>
