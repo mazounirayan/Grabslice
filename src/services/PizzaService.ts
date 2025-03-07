@@ -1,200 +1,346 @@
-import { Project, Skill } from '@interfaces/type';
+import { Project as Pizza, Comment } from '@interfaces/type';
 import { CustomError } from '../commons/Error';
 
-interface IProjectService {
-    GetPizzaById(id: string): Promise<any>;
-    UpdatePizzaById(id: string, body: any): Promise<any>;
-    DeletePizzaById(id: string): Promise<any>;
-    GetPizzaList(limit: number, page: number): Promise<any>;
-    CreatePizza(body: any): Promise<any>;
-
-    addSliceToPizza(id: string, body: any): Promise<any>;
-    addSkillToPizza(id: string, body: any): Promise<any>;
-    addCommentToPizza(id: string, body: any): Promise<any>;
-    addCollaboratorToPizza(id: string, body: any): Promise<any>;
-
-    likePizza(id: string): Promise<any>;
-    unlikePizza(id: string): Promise<any>;
-
-    getPizzaComments(id: string): Promise<any>;
-    GetPizzaOfUser(userId: string): Promise<Project[]>
-
-    removeSliceFromPizza(id: string, sliceId: string): Promise<any>;
-    removeSkillFromPizza(id: string, skillId: string): Promise<any>;
-    removeCommentFromPizza(id: string, commentId: string): Promise<any>;
-    removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<any>;
+interface IPizzaService {
+    GetPizzaById(id: string): Promise<Pizza>;
+    UpdatePizzaById(id: string, body: Record<string, unknown>): Promise<Pizza>;
+    DeletePizzaById(id: string): Promise<void>;
+    GetPizzaList(limit: number, page: number): Promise<Pizza[]>;
+    CreatePizza(body: Record<string, unknown>): Promise<Pizza>;
+    addSliceToPizza(id: string, body: Record<string, unknown>): Promise<void>;
+    addSkillToPizza(id: string, body: Record<string, unknown>): Promise<void>;
+    addCommentToPizza(id: string, body: Record<string, unknown>): Promise<void>;
+    addCollaboratorToPizza(id: string, body: Record<string, unknown>): Promise<void>;
+    likePizza(id: string): Promise<void>;
+    unlikePizza(id: string): Promise<void>;
+    getPizzaComments(id: string): Promise<Comment[]>;
+    GetPizzaOfUser(userId: string): Promise<Pizza[]>;
+    removeSliceFromPizza(id: string, sliceId: string): Promise<void>;
+    removeSkillFromPizza(id: string, skillId: string): Promise<void>;
+    removeCommentFromPizza(id: string, commentId: string): Promise<void>;
+    removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<void>;
 }
 
-const BASE_URL = '/api/project/'
+const BASE_URL = '/project/';
 
-class PizzaService implements IProjectService {
-    async GetPizzaList(): Promise<Project[]> {
-        const pizzas: Project[] = [];
-        const categories: Skill[] = [];
-        categories.push({
-            id: 1,
-            name: 'Rust',
-            shapeName: 'Shape 1',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        
-        });
-        categories.push({
-            id: 2,
-            name: 'Java',
-            shapeName: 'Shape 2',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        
-        });
-        categories.push({
-            id: 3,
-            name: 'Typescript',
-            shapeName: 'Shape 3',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        
-        });
-        pizzas.push({
-            id: 1,
-            name: 'Pizza 1',
-            likes: 1,
-            comments: [],
-            categories: categories.slice(1,3),
-            collaborators: [],
-            request: [],
-            createdAt: new Date(),
-            updatedAt: new Date()
-        });
-        pizzas.push({
-            id: 2,
-            name: 'Pizza 2',
-            likes: 6,
-            comments: [],
-            categories: categories.slice(0, 1),
-            collaborators: [],
-            request: [],
-            createdAt: new Date(),
-            updatedAt: new Date()
-        });
-        return pizzas;
-
-        
+class PizzaService implements IPizzaService {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async GetPizzaList(_limit: number, _page: number): Promise<Pizza[]> {
         try {
-            const res = await fetch('http://localhost:3000'+BASE_URL);
+            const res = await fetch(BASE_URL, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }
             return await res.json();
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
         }
     }
 
-    async GetPizzaOfUser(userId: string): Promise<Project[]> {
+    async GetPizzaById(id: string): Promise<Pizza> {
         try {
-            const res = await fetch(`http://localhost:3000/pizzas/user/${userId}`);
+            const res = await fetch(`${BASE_URL}${id}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }
             return await res.json();
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
-        }
-    }
-
-    async GetPizzaById(userId: string): Promise<Project> {
-        try {
-            const res = await fetch(`http://localhost:3000`+BASE_URL + userId);
-            if (!res.ok) {
-                throw new CustomError(res.status, res.statusText);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
             }
-            return await res.json();
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
+            throw new CustomError(500, 'Unknown error');
         }
     }
 
-    async CreatePizza(body: any): Promise<Project> {
+    async CreatePizza(body: Record<string, unknown>): Promise<Pizza> {
         try {
-            const res = await fetch('http://localhost:3000/pizzas', {
+            const res = await fetch(BASE_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
             if (!res.ok) {
-                throw new CustomError(res.status, res.statusText);
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
             }
             return await res.json();
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
         }
     }
 
-    async UpdatePizzaById(id: string, body: any): Promise<Project> {
+    async UpdatePizzaById(id: string, body: Record<string, unknown>): Promise<Pizza> {
         try {
-            const res = await fetch(`http://localhost:3000/pizzas/${id}`, {
+            const res = await fetch(`${BASE_URL}${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
             if (!res.ok) {
-                throw new CustomError(res.status, res.statusText);
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
             }
             return await res.json();
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
         }
     }
 
     async DeletePizzaById(id: string): Promise<void> {
         try {
-            const res = await fetch(`http://localhost:3000/pizzas/${id}`, {
-                method: 'DELETE'
+            const res = await fetch(`${BASE_URL}${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async addSliceToPizza(id: string, body: Record<string, unknown>): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/addSlice`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async addSkillToPizza(id: string, body: Record<string, unknown>): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/addSkill`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async addCommentToPizza(id: string, body: Record<string, unknown>): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/addComment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async addCollaboratorToPizza(id: string, body: Record<string, unknown>): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/addCollaborator`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async likePizza(id: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/like`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async unlikePizza(id: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/removeLike`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
+    }
+
+    async getPizzaComments(id: string): Promise<Comment[]> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/comments`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
             });
             if (!res.ok) {
                 throw new CustomError(res.status, res.statusText);
             }
-        } catch (error: any) {
-            throw new CustomError(500, error.message);
+            return await res.json();
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
         }
     }
-    addSliceToPizza(id: string, body: any): Promise<any> {
-        throw new Error('Method not implemented.');
+
+    async GetPizzaOfUser(userId: string): Promise<Pizza[]> {
+        try {
+            const res = await fetch(`${BASE_URL}user/${userId}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!res.ok) {
+                throw new CustomError(res.status, res.statusText);
+            }
+            return await res.json();
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
     }
-    addSkillToPizza(id: string, body: any): Promise<any> {
-        throw new Error('Method not implemented.');
+
+    async removeSliceFromPizza(id: string, sliceId: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/removeSlice`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(sliceId)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
     }
-    addCommentToPizza(id: string, body: any): Promise<any> {
-        throw new Error('Method not implemented.');
+
+    async removeSkillFromPizza(id: string, skillId: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/removeSkill`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(skillId)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
     }
-    addCollaboratorToPizza(id: string, body: any): Promise<any> {
-        throw new Error('Method not implemented.');
+
+    async removeCommentFromPizza(id: string, commentId: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/removeComment`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(commentId)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
     }
-    likePizza(id: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    unlikePizza(id: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    getPizzaComments(id: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    removeSliceFromPizza(id: string, sliceId: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    removeSkillFromPizza(id: string, skillId: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    removeCommentFromPizza(id: string, commentId: string): Promise<any> {
-        throw new Error('Method not implemented.');
-    }
-    removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<any> {
-        throw new Error('Method not implemented.');
+
+    async removeCollaboratorFromPizza(id: string, collaboratorId: string): Promise<void> {
+        try {
+            const res = await fetch(`${BASE_URL}${id}/removeCollaborator`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(collaboratorId)
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new CustomError(res.status, (data.error as string) || res.statusText);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new CustomError(500, error.message);
+            }
+            throw new CustomError(500, 'Unknown error');
+        }
     }
 }
 
