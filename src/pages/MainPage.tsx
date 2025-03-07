@@ -53,10 +53,10 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
     setActiveFilter(filterId);
     // Votre logique de filtrage ici
   };
-  const navigate = useNavigate();
-  const handleClick = (pizza : PizzaCardProps ) => {
-    navigate(`/PizzaDetail/${pizza.id}`); // Redirige vers Profil avec l'ID de la pizza
-  };
+  // const navigate = useNavigate();
+  // const handleClick = (pizza : PizzaCardProps ) => {
+  //   navigate(`/PizzaDetail/${pizza.id}`); // Redirige vers Profil avec l'ID de la pizza
+  // };
     return (
       <div>
         {/* <TitleCard/> */}
@@ -73,18 +73,15 @@ const [pizzas, setPizzas] = useState<PizzaCardProps[]>([]);
               <h1 className="text-2xl font-bold text-center mb-6">Nos Pizzas</h1>
               <div className="grid grid-cols-3 gap-4">
                 {pizzas.map((pizza, index) => (
-                  <div key={index} onClick={() => handleClick(pizza)} className="cursor-pointer">
+                  // <div key={index} onClick={() => handleClick(pizza)} className="cursor-pointer"> {/* </div> */}
                   <PizzaCard {...pizza} />
-                </div>
+               
                 ))}
               </div>
             </div>
           </div>
           
         </div>
-
-    
-
       </div>
 
     )
