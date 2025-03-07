@@ -22,19 +22,35 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        if (localStorage.getItem('token')) {
-          const data = await UserService.getUserDataByToken();
-          if (data instanceof CustomError) {
-            localStorage.removeItem('token');
-            setUser(null);
-          } else {
-            setUser(data);
-          }
-        }
+        setUser({
+          id: 0,
+          email: '',
+          role: 'admin',
+          active: true,
+        });
+        // if (localStorage.getItem('token')) {
+        //   const data = await UserService.getUserDataByToken();
+        //   if (data instanceof CustomError) {
+        //     localStorage.removeItem('token');
+        //     setUser({
+        //       id: 0,
+        //       email: '',
+        //       role: 'admin',
+        //       active: true,
+        //     });
+        //   } else {
+        //     setUser(data);
+        //   }
+        // }
       } catch (error) {
         console.error('Error fetching user data:', error);
         localStorage.removeItem('token');
-        setUser(null);
+        setUser({
+          id: 0,
+          email: '',
+          role: 'admin',
+          active: true,
+        });
       }
     };
 

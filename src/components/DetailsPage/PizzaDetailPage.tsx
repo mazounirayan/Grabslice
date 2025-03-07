@@ -134,8 +134,9 @@ export default function PizzaDetailPage() {
         onSubmit: (data: {email:string, toppings:string[]}) => {
             addToast("Sent slice to : "+data.email, ToastType.SUCCESS);
             const body = {
+                projectId: pizza!.id,
                 recipient: data.email,
-                toppings: data.toppings
+                toppings: data.toppings,
             }
             SliceService.CreateSlice(body);
             console.log("Submitted data:", data);

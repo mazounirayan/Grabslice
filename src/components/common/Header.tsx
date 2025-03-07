@@ -9,8 +9,12 @@ import LanguageCompositionModal from '@components/modal/createProjectModal';
 
 export default function Header() {
     const { user } = useUser();
+    
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
-    const isLogged = user?.role.toLowerCase() === 'user' || false;
+    const isLogged = user?.role.toLowerCase() === 'admin' || false;
     const [theme, _] = useState(localStorage.getItem('theme') || 'dark');
 
     useEffect(() => {
@@ -30,9 +34,9 @@ export default function Header() {
                 <a className="btn btn-ghost text-xl">{COMPANY_TITLE}</a>
             </div>
             <div className="navbar-end">
-                {/* {isLogged && ( */}
+                {isLogged && (
                     <LanguageCompositionModal/>
-                {/* )} */}
+                )} 
                 {/* <ContactForm short={true} /> */}
                 
                 <UserBtn notif={true} userData={user} />

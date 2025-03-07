@@ -24,6 +24,16 @@ const BASE_URL = '/api/auth/'
 class AuthService{
     async login(email: string, password: string): Promise<LogRegResponse|CustomError> {
 
+      return {
+        token: "ddddd",
+        user: {
+            id: "1",
+            email: email,
+            role: "admin",
+        }
+      }
+      
+
         const body = {
             email: email,
             password: password,
@@ -67,6 +77,15 @@ class AuthService{
      }
 
     async register(email: string, password: string, name: string, lastName: string): Promise<LogRegResponse|CustomError> {
+
+      return {
+        token: "ddddd",
+        user: {
+            id: "1",
+            email: email,
+            role: "admin",
+        }
+      }
 
         const body = {
             email: email,
