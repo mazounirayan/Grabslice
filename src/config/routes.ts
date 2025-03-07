@@ -35,12 +35,6 @@ const routes: IRoute[] = [
         ]
     },
     {
-        path: '/PizzaDetail',
-        name: 'Pizza Detail Page',
-        component: PizzaDetailPage,
-        exact: true
-    },
-    {
         path: '//PizzaDetail/:id',
         name: 'Pizza Detail Page',
         component: PizzaDetailPage,

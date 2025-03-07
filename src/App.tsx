@@ -9,10 +9,6 @@ import { ToastManager, useToast } from './context/ToastManager';
 import { ModalProvider } from '@components/serviceable/modal.service';
 import TitleBig from '@components/common/TitleBig';
 
-console.log("Vites is running in mode: ", import.meta.env.MODE);
-console.log("Vites is running in env prod : ", import.meta.env.PROD);
-console.log("Vites is running in env dev : ", import.meta.env.DEV);
-
 function App() {
 
   return (

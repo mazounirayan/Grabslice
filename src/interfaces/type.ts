@@ -42,6 +42,9 @@ export type User = {
 export type Slice = {
     id: number;
     name: string;
+    recipient: User;
+    project: Project;
+    sender: User;
     categories: Skill[];
     comments: Comment[];
     likes: number;
