@@ -66,11 +66,13 @@ class AuthService{
         }
      }
 
-    async register(email: string, password: string): Promise<LogRegResponse|CustomError> {
+    async register(email: string, password: string, name: string, lastName: string): Promise<LogRegResponse|CustomError> {
 
         const body = {
             email: email,
             password: password,
+            name: name,
+            lastName: lastName
         };
         try {
             const response = await fetch(BASE_URL+'signup', {

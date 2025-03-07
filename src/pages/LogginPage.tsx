@@ -10,6 +10,8 @@ export default function LogginPage() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        name: '',
+        lastName: '',
         remember_me: false
     });
     const [error, setError] = useState('');
@@ -49,7 +51,7 @@ export default function LogginPage() {
                 navigate('/');
             }
         } else {
-            const result = await AuthService.register(formData.email, formData.password);
+            const result = await AuthService.register(formData.email, formData.password, formData.name, formData.lastName);
 
             if (result instanceof CustomError) {
                 setError(result.message);
@@ -125,6 +127,36 @@ export default function LogginPage() {
                                             </span>
                                         </div>
                                     </div>
+                                    {!isLogin && (
+                                     <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-700 tracking-wide">Name</label>
+                                        <input
+                                            className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            placeholder="John"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                )}
+                                {!isLogin && (
+                                <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-700 tracking-wide">Last name</label>
+                                <input
+                                    className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+                                    type="text"
+                                    name="lastName"
+                                    id="lastName"
+                                    placeholder="Doe"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                                    )}
                                     {isLogin && (
                                         <div className="flex items-center justify-between">
                                             <div className="text-sm">
